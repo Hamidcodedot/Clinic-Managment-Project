@@ -379,8 +379,10 @@ namespace ClinicApp.Forms
             dgvApps.SendToBack();
 
             // Add Panels to Form
-            this.Controls.Add(pnlList);
             this.Controls.Add(pnlForm);
+            this.Controls.Add(pnlList);
+            pnlForm.BringToFront();
+            pnlList.SendToBack();
         }
 
         private void LoadLookups()

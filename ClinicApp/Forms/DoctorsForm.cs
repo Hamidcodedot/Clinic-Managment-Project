@@ -141,8 +141,10 @@ namespace ClinicApp.Forms
             buttonPanel.BringToFront();
             dgvDoctors.SendToBack();
 
-            this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
+            this.Controls.Add(gridPanel);
+            inputPanel.BringToFront();
+            gridPanel.SendToBack();
         }
 
         private TextBox CreateInput(Control parent, string label, int y)
