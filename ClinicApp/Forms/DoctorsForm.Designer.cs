@@ -39,8 +39,8 @@ namespace ClinicApp.Forms
             this.BackColor = Color.White;
             this.Font = new Font("Segoe UI", 9F);
 
-            // Left Input Panel - Enabled AutoScroll for small screen responsiveness
-            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20), AutoScroll = true };
+            // Left Input Panel
+            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20) };
             
             // Absolutely positioned header to avoid collisions
             Label lblHeader = new Label { Text = "Doctor Details", Font = new Font("Segoe UI", 14F, FontStyle.Bold), Location = new Point(20, 15), Size = new Size(230, 30) };
@@ -75,7 +75,7 @@ namespace ClinicApp.Forms
             pnlSearch.Controls.Add(lblSearch);
             pnlSearch.Controls.Add(txtSearch);
 
-            // Grid - Docked Fill
+            // Grid
             dgvDoctors = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -105,14 +105,12 @@ namespace ClinicApp.Forms
             gridPanel.Controls.Add(pnlSearch);
             gridPanel.Controls.Add(buttonPanel);
 
-            // Z-Order layout configuration to prevent overlaps
+            // Prevent overlapping by ordering the dock Z-index
             pnlSearch.BringToFront();
             buttonPanel.BringToFront();
-            dgvDoctors.SendToBack(); // Pushes the grid to the background so search panel & action button panel are fully visible!
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
-            inputPanel.BringToFront(); // Ensure Left Input Panel is never overlapped by Grid Panel
         }
 
         private TextBox CreateInput(Control parent, string label, int y)

@@ -40,8 +40,7 @@ namespace ClinicApp.Forms
             this.BackColor = Color.White;
             this.Font = new Font("Segoe UI", 9F);
 
-            // Left Input Panel - Enabled AutoScroll for small screen responsiveness
-            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20), AutoScroll = true };
+            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20) };
             Label lblHeader = new Label { Text = "Patient Details", Font = new Font("Segoe UI", 14F, FontStyle.Bold), Dock = DockStyle.Top, Height = 40 };
             inputPanel.Controls.Add(lblHeader);
 
@@ -65,18 +64,12 @@ namespace ClinicApp.Forms
             inputPanel.Controls.Add(btnSave);
             inputPanel.Controls.Add(btnClear);
 
-            // Right Grid Panel
             Panel gridPanel = new Panel { Dock = DockStyle.Fill, Padding = new Padding(20) };
-            
-            // Search Bar Panel - Clean docked container to prevent overlapping
-            Panel pnlSearch = new Panel { Dock = DockStyle.Top, Height = 55 };
-            Label lblSearch = new Label { Text = "Search:", Location = new Point(0, 5), AutoSize = true, Font = new Font("Segoe UI", 9F, FontStyle.Bold) };
-            txtSearch = new TextBox { Location = new Point(0, 25), Width = 400, Font = new Font("Segoe UI", 11F) };
+            txtSearch = new TextBox { Dock = DockStyle.Top, Font = new Font("Segoe UI", 11F) };
             txtSearch.TextChanged += (s, e) => LoadData(txtSearch.Text);
-            pnlSearch.Controls.Add(lblSearch);
-            pnlSearch.Controls.Add(txtSearch);
+            gridPanel.Controls.Add(new Label { Text = "Search:", Dock = DockStyle.Top, Height = 25 });
+            gridPanel.Controls.Add(txtSearch);
 
-            // Grid - Docked Fill
             dgvPatients = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -89,8 +82,8 @@ namespace ClinicApp.Forms
                 AllowUserToAddRows = false,
                 AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.FromArgb(235, 245, 251) }
             };
+            gridPanel.Controls.Add(dgvPatients);
 
-            // Bottom Actions Panel
             Panel buttonPanel = new Panel { Dock = DockStyle.Bottom, Height = 60 };
             btnEdit = new Button { Text = "Edit Selected", Location = new Point(20, 10), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
             btnEdit.Click += BtnEdit_Click;
@@ -100,20 +93,10 @@ namespace ClinicApp.Forms
 
             buttonPanel.Controls.Add(btnEdit);
             buttonPanel.Controls.Add(btnDelete);
-
-            // Add to Grid Panel in strict order
-            gridPanel.Controls.Add(dgvPatients);
-            gridPanel.Controls.Add(pnlSearch);
             gridPanel.Controls.Add(buttonPanel);
-
-            // Z-Order layout configuration to prevent overlaps
-            pnlSearch.BringToFront();
-            buttonPanel.BringToFront();
-            dgvPatients.SendToBack(); // Pushes the grid to the background so search panel & action button panel are fully visible!
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
-            inputPanel.BringToFront(); // Ensure Left Input Panel is never overlapped by Grid Panel
         }
 
         private TextBox CreateInput(Control parent, string label, int y)

@@ -70,15 +70,14 @@ namespace ClinicApp.Forms
             this.BackColor = Color.White;
             this.Font = new Font("Segoe UI", 9F);
 
-            // Left Panel (Form Entry Pane) - Enabled AutoScroll for small screen responsiveness
+            // Left Panel (Form Entry Pane)
             Panel pnlForm = new Panel
             {
                 Dock = DockStyle.Left,
                 Width = 380,
                 BackColor = Color.FromArgb(248, 249, 250),
                 Padding = new Padding(15, 10, 15, 10),
-                BorderStyle = BorderStyle.FixedSingle,
-                AutoScroll = true
+                BorderStyle = BorderStyle.FixedSingle
             };
 
             Label lblTitle = new Label
@@ -259,7 +258,7 @@ namespace ClinicApp.Forms
 
             pnlList.Controls.Add(pnlFilter);
 
-            // DataGridView Setup - Docked Fill
+            // DataGridView Setup
             dgvApps = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -328,15 +327,12 @@ namespace ClinicApp.Forms
             pnlList.Controls.Add(dgvApps);
             pnlList.Controls.Add(pnlActions);
 
-            // Z-Order layout configuration to prevent overlaps
             pnlFilter.BringToFront();
             pnlActions.BringToFront();
-            dgvApps.SendToBack(); // Pushes the grid to the background so filter bar & action panel are fully visible!
 
             // Add Panels to Form
             this.Controls.Add(pnlList);
             this.Controls.Add(pnlForm);
-            pnlForm.BringToFront(); // Ensure Left Panel is never overlapped by Fill Panel
         }
 
         #endregion

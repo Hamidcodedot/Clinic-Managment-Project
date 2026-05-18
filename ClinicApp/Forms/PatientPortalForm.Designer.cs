@@ -50,8 +50,8 @@ namespace ClinicApp.Forms
             pnlHeader = new Panel { Dock = DockStyle.Top, Height = 60, BackColor = Color.SeaGreen };
             pnlHeader.Controls.Add(new Label { Text = "Patient Portal", ForeColor = Color.White, Font = new Font("Segoe UI", 16F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter, Dock = DockStyle.Fill });
 
-            // 2. Main Content Area - Enabled AutoScroll for small screens
-            Panel contentMain = new Panel { Dock = DockStyle.Fill, Padding = new Padding(20), AutoScroll = true };
+            // 2. Main Content Area
+            Panel contentMain = new Panel { Dock = DockStyle.Fill, Padding = new Padding(20) };
             SetupRecordsSection(contentMain);
 
             // 3. Footer
@@ -71,8 +71,7 @@ namespace ClinicApp.Forms
 
             pnlRecords.Controls.Add(new Label { Text = "View My History & Profile (Login Required)", Location = new Point(0, 0), AutoSize = true, Font = new Font("Segoe UI", 12F, FontStyle.Bold), ForeColor = Color.SteelBlue });
 
-            // Anchored Top, Left, and Right so it stretches horizontally on maximize
-            Panel pnlLog = new Panel { Location = new Point(0, 40), Size = new Size(780, 80), BorderStyle = BorderStyle.FixedSingle, BackColor = Color.FromArgb(245, 245, 245), Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right };
+            Panel pnlLog = new Panel { Location = new Point(0, 40), Size = new Size(780, 80), BorderStyle = BorderStyle.FixedSingle, BackColor = Color.FromArgb(245, 245, 245) };
             pnlLog.Controls.Add(new Label { Text = "Phone:", Location = new Point(10, 10) });
             txtLoginPhone = new TextBox { Location = new Point(10, 30), Width = 150 };
             pnlLog.Controls.Add(txtLoginPhone);
@@ -86,16 +85,12 @@ namespace ClinicApp.Forms
             pnlLog.Controls.Add(lblRecordWelcome);
             pnlRecords.Controls.Add(pnlLog);
 
-            // Anchored in all directions so it grows/shrinks perfectly with the window
-            pnlHistoryAndProfile = new Panel { Location = new Point(0, 130), Size = new Size(780, 450), Visible = false, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom };
+            pnlHistoryAndProfile = new Panel { Location = new Point(0, 130), Size = new Size(780, 450), Visible = false };
             pnlHistoryAndProfile.Controls.Add(new Label { Text = "Your Appointment History:", Location = new Point(0, 10), Font = new Font("Segoe UI", 10F, FontStyle.Bold) });
-            
-            // Grid stretches in all directions
-            dgvMyAppts = new DataGridView { Location = new Point(0, 35), Size = new Size(780, 220), ReadOnly = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, BackgroundColor = Color.White, RowHeadersVisible = false, AllowUserToAddRows = false, Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Bottom };
+            dgvMyAppts = new DataGridView { Location = new Point(0, 35), Size = new Size(780, 220), ReadOnly = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, BackgroundColor = Color.White, RowHeadersVisible = false, AllowUserToAddRows = false };
             pnlHistoryAndProfile.Controls.Add(dgvMyAppts);
 
-            // Anchored Bottom, Left, and Right so it always stays anchored at the bottom of the grid and stretches horizontally
-            Panel pnlCP = new Panel { Location = new Point(0, 270), Size = new Size(780, 80), BorderStyle = BorderStyle.FixedSingle, Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right };
+            Panel pnlCP = new Panel { Location = new Point(0, 270), Size = new Size(780, 80), BorderStyle = BorderStyle.FixedSingle };
             pnlCP.Controls.Add(new Label { Text = "Change Password:", Location = new Point(10, 10), Font = new Font("Segoe UI", 9F, FontStyle.Bold) });
             txtNewPass = new TextBox { Location = new Point(10, 35), Width = 200, PasswordChar = '*' };
             pnlCP.Controls.Add(txtNewPass);
