@@ -18,6 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="**\*.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Program.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -29,64 +32,6 @@
     </Compile>
     <Compile Update="Repositories\*.cs">
       <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- AppointmentsForm -->
-    <Compile Update="Forms\AppointmentsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\AppointmentsForm.Designer.cs">
-      <DependentUpon>AppointmentsForm.cs</DependentUpon>
-    </Compile>
-
-    <!-- DoctorsForm -->
-    <Compile Update="Forms\DoctorsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\DoctorsForm.Designer.cs">
-      <DependentUpon>DoctorsForm.cs</DependentUpon>
-    </Compile>
-
-    <!-- LoginForm -->
-    <Compile Update="Forms\LoginForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
-    </Compile>
-
-    <!-- MainForm -->
-    <Compile Update="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-
-    <!-- PatientPortalForm -->
-    <Compile Update="Forms\PatientPortalForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\PatientPortalForm.Designer.cs">
-      <DependentUpon>PatientPortalForm.cs</DependentUpon>
-    </Compile>
-
-    <!-- PatientsForm -->
-    <Compile Update="Forms\PatientsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\PatientsForm.Designer.cs">
-      <DependentUpon>PatientsForm.cs</DependentUpon>
-    </Compile>
-
-    <!-- RoleSelectForm -->
-    <Compile Update="Forms\RoleSelectForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\RoleSelectForm.Designer.cs">
-      <DependentUpon>RoleSelectForm.cs</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
