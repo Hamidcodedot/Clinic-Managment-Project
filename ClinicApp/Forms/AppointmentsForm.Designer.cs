@@ -70,14 +70,15 @@ namespace ClinicApp.Forms
             this.BackColor = Color.White;
             this.Font = new Font("Segoe UI", 9F);
 
-            // Left Panel (Form Entry Pane)
+            // Left Panel (Form Entry Pane) - Enabled AutoScroll for small screen responsiveness
             Panel pnlForm = new Panel
             {
                 Dock = DockStyle.Left,
                 Width = 380,
                 BackColor = Color.FromArgb(248, 249, 250),
                 Padding = new Padding(15, 10, 15, 10),
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoScroll = true
             };
 
             Label lblTitle = new Label
@@ -327,12 +328,14 @@ namespace ClinicApp.Forms
             pnlList.Controls.Add(dgvApps);
             pnlList.Controls.Add(pnlActions);
 
+            // Z-Order layout priority
             pnlFilter.BringToFront();
             pnlActions.BringToFront();
 
             // Add Panels to Form
             this.Controls.Add(pnlList);
             this.Controls.Add(pnlForm);
+            pnlForm.BringToFront(); // Ensure Left Panel is never overlapped by Fill Panel
         }
 
         #endregion

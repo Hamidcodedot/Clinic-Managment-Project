@@ -39,8 +39,8 @@ namespace ClinicApp.Forms
             this.BackColor = Color.White;
             this.Font = new Font("Segoe UI", 9F);
 
-            // Left Input Panel
-            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20) };
+            // Left Input Panel - Enabled AutoScroll for small screen responsiveness
+            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20), AutoScroll = true };
             
             // Absolutely positioned header to avoid collisions
             Label lblHeader = new Label { Text = "Doctor Details", Font = new Font("Segoe UI", 14F, FontStyle.Bold), Location = new Point(20, 15), Size = new Size(230, 30) };
@@ -111,6 +111,7 @@ namespace ClinicApp.Forms
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
+            inputPanel.BringToFront(); // Ensure Left Input Panel is never overlapped by Grid Panel
         }
 
         private TextBox CreateInput(Control parent, string label, int y)
