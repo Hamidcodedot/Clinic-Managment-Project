@@ -271,8 +271,6 @@ namespace ClinicApp.Forms
 
                 // Heights to give rows breathing room
                 RowTemplate = { Height = 40 }, // Row ki height 40px ki taake text squished na ho
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
-                ColumnHeadersHeight = 45, // Headers ki height 45px
                 ColumnHeadersVisible = true, // Explicitly show column headers
 
                 // Windows ke default themes ko overrides karne ke liye
@@ -406,6 +404,17 @@ namespace ClinicApp.Forms
                 string status = cmbFilterStatus.SelectedItem.ToString();
                 dgvApps.DataSource = appRepo.GetAll(dateStr, status);
                 
+                // Adjust Column Headers Height after binding to avoid WinForms layout calculation bugs
+                dgvApps.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+                dgvApps.ColumnHeadersHeight = 45;
+
+                // Explicitly style each auto-generated column header to guarantee it renders SteelBlue with white text
+                foreach (DataGridViewColumn col in dgvApps.Columns)
+                {
+                    col.HeaderCell.Style.BackColor = Color.SteelBlue;
+                    col.HeaderCell.Style.ForeColor = Color.White;
+                }
+
                 // Set column headers
                 if (dgvApps.Columns.Count > 0)
                 {

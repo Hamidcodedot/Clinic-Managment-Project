@@ -72,8 +72,7 @@ namespace ClinicApp.Forms
                 CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
                 GridColor = Color.FromArgb(230, 235, 240),
                 RowTemplate = { Height = 40 },
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
-                ColumnHeadersHeight = 45,
+                ColumnHeadersVisible = true, // Explicitly show column headers
                 EnableHeadersVisualStyles = false
             };
 
@@ -103,7 +102,6 @@ namespace ClinicApp.Forms
                 SelectionBackColor = Color.FromArgb(220, 235, 252),
                 SelectionForeColor = Color.FromArgb(44, 62, 80)
             };
-            gridPanel.Controls.Add(dgvPatients);
 
             Panel buttonPanel = new Panel { Dock = DockStyle.Bottom, Height = 60 };
             btnEdit = new Button { Text = "Edit Selected", Location = new Point(20, 10), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
@@ -114,7 +112,10 @@ namespace ClinicApp.Forms
 
             buttonPanel.Controls.Add(btnEdit);
             buttonPanel.Controls.Add(btnDelete);
+            
+            // Add docked controls first, and then the Fill control last to prevent overlapping
             gridPanel.Controls.Add(buttonPanel);
+            gridPanel.Controls.Add(dgvPatients);
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
@@ -133,6 +134,28 @@ namespace ClinicApp.Forms
             try
             {
                 dgvPatients.DataSource = string.IsNullOrEmpty(query) ? repo.GetAll() : repo.Search(query);
+
+                // Adjust Column Headers Height after binding to avoid WinForms layout calculation bugs
+                dgvPatients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+                dgvPatients.ColumnHeadersHeight = 45;
+
+                // Explicitly style each auto-generated column header to guarantee it renders SteelBlue with white text
+                foreach (DataGridViewColumn col in dgvPatients.Columns)
+                {
+                    col.HeaderCell.Style.BackColor = Color.SteelBlue;
+                    col.HeaderCell.Style.ForeColor = Color.White;
+                }
+
+                if (dgvPatients.Columns.Count > 0)
+                {
+                    if (dgvPatients.Columns.Contains("PatientID")) dgvPatients.Columns["PatientID"].Visible = false;
+                    if (dgvPatients.Columns.Contains("FullName")) dgvPatients.Columns["FullName"].HeaderText = "Full Name";
+                    if (dgvPatients.Columns.Contains("Gender")) dgvPatients.Columns["Gender"].HeaderText = "Gender";
+                    if (dgvPatients.Columns.Contains("Age")) dgvPatients.Columns["Age"].HeaderText = "Age";
+                    if (dgvPatients.Columns.Contains("Phone")) dgvPatients.Columns["Phone"].HeaderText = "Phone";
+                    if (dgvPatients.Columns.Contains("Address")) dgvPatients.Columns["Address"].HeaderText = "Address";
+                    if (dgvPatients.Columns.Contains("Password")) dgvPatients.Columns["Password"].Visible = false;
+                }
             }
             catch (Exception ex)
             {
