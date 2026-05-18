@@ -127,9 +127,8 @@ namespace ClinicApp.Forms
             gridPanel.Controls.Add(pnlSearch);
             gridPanel.Controls.Add(buttonPanel);
 
-            // Prevent overlapping by ordering the dock Z-index
-            pnlSearch.BringToFront();
-            buttonPanel.BringToFront();
+            // Send DockStyle.Fill control to back so it properly fills space between top & bottom docked panels
+            dgvDoctors.SendToBack();
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);

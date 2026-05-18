@@ -365,8 +365,8 @@ namespace ClinicApp.Forms
             pnlList.Controls.Add(dgvApps);
             pnlList.Controls.Add(pnlActions);
 
-            pnlFilter.BringToFront();
-            pnlActions.BringToFront();
+            // Send DockStyle.Fill control to back so it properly fills space between top & bottom docked panels
+            dgvApps.SendToBack();
 
             // Add Panels to Form
             this.Controls.Add(pnlList);
