@@ -259,7 +259,7 @@ namespace ClinicApp.Forms
 
             pnlList.Controls.Add(pnlFilter);
 
-            // DataGridView Setup
+            // DataGridView Setup - Docked Fill
             dgvApps = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -328,9 +328,10 @@ namespace ClinicApp.Forms
             pnlList.Controls.Add(dgvApps);
             pnlList.Controls.Add(pnlActions);
 
-            // Z-Order layout priority
+            // Z-Order layout configuration to prevent overlaps
             pnlFilter.BringToFront();
             pnlActions.BringToFront();
+            dgvApps.SendToBack(); // Pushes the grid to the background so filter bar & action panel are fully visible!
 
             // Add Panels to Form
             this.Controls.Add(pnlList);

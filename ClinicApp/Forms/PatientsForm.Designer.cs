@@ -76,7 +76,7 @@ namespace ClinicApp.Forms
             pnlSearch.Controls.Add(lblSearch);
             pnlSearch.Controls.Add(txtSearch);
 
-            // Grid
+            // Grid - Docked Fill
             dgvPatients = new DataGridView
             {
                 Dock = DockStyle.Fill,
@@ -106,9 +106,10 @@ namespace ClinicApp.Forms
             gridPanel.Controls.Add(pnlSearch);
             gridPanel.Controls.Add(buttonPanel);
 
-            // Prevent overlapping by ordering the dock Z-index
+            // Z-Order layout configuration to prevent overlaps
             pnlSearch.BringToFront();
             buttonPanel.BringToFront();
+            dgvPatients.SendToBack(); // Pushes the grid to the background so search panel & action button panel are fully visible!
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
