@@ -1,0 +1,26 @@
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Re]leases/
+x64/
+x86/
+build/
+bin/
+obj/
+
+# Visual Studio cache/options directory
+.vs/
+
+# Databases (We keep clinic.db in ignore if it's dynamic, but let's exclude it or include depending on need.
+# Generally it's better to ignore dynamic databases and let them auto-generate, which our code does!)
+*.db
+*.db-journal
+*.sqlite

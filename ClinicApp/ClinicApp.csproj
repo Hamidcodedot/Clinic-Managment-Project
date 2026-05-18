@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net472</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>ClinicApp</AssemblyName>
+    <RootNamespace>ClinicApp</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Deployment" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Program.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Database\DatabaseHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Models\*.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Repositories\*.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
