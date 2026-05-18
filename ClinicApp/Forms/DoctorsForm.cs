@@ -79,18 +79,9 @@ namespace ClinicApp.Forms
                 CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
                 GridColor = Color.FromArgb(230, 235, 240),
                 RowTemplate = { Height = 40 },
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
                 ColumnHeadersVisible = true, // Explicitly show column headers
-                EnableHeadersVisualStyles = false
-            };
-
-            dgvDoctors.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.SteelBlue,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
-                Alignment = DataGridViewContentAlignment.MiddleLeft,
-                SelectionBackColor = Color.SteelBlue,
-                SelectionForeColor = Color.White
+                EnableHeadersVisualStyles = true
             };
 
             dgvDoctors.DefaultCellStyle = new DataGridViewCellStyle
@@ -144,17 +135,6 @@ namespace ClinicApp.Forms
             {
                 dgvDoctors.DataSource = string.IsNullOrEmpty(query) ? repo.GetAll() : repo.Search(query);
                 
-                // Adjust Column Headers Height after binding to avoid WinForms layout calculation bugs
-                dgvDoctors.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-                dgvDoctors.ColumnHeadersHeight = 45;
-
-                // Explicitly style each auto-generated column header to guarantee it renders SteelBlue with white text
-                foreach (DataGridViewColumn col in dgvDoctors.Columns)
-                {
-                    col.HeaderCell.Style.BackColor = Color.SteelBlue;
-                    col.HeaderCell.Style.ForeColor = Color.White;
-                }
-
                 // Adjust headers
                 if (dgvDoctors.Columns.Count > 0)
                 {

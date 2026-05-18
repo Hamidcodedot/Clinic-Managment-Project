@@ -271,21 +271,11 @@ namespace ClinicApp.Forms
 
                 // Heights to give rows breathing room
                 RowTemplate = { Height = 40 }, // Row ki height 40px ki taake text squished na ho
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
                 ColumnHeadersVisible = true, // Explicitly show column headers
 
-                // Windows ke default themes ko overrides karne ke liye
-                EnableHeadersVisualStyles = false
-            };
-
-            // Headers Styling (Premium Header Look)
-            dgvApps.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.SteelBlue,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
-                Alignment = DataGridViewContentAlignment.MiddleLeft,
-                SelectionBackColor = Color.SteelBlue, // Header select hone par same color rahe
-                SelectionForeColor = Color.White
+                // Windows ke default themes ko use karne ke liye
+                EnableHeadersVisualStyles = true
             };
 
             // Default Cell Styling (Clean & Readable)
@@ -404,17 +394,6 @@ namespace ClinicApp.Forms
                 string status = cmbFilterStatus.SelectedItem.ToString();
                 dgvApps.DataSource = appRepo.GetAll(dateStr, status);
                 
-                // Adjust Column Headers Height after binding to avoid WinForms layout calculation bugs
-                dgvApps.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-                dgvApps.ColumnHeadersHeight = 45;
-
-                // Explicitly style each auto-generated column header to guarantee it renders SteelBlue with white text
-                foreach (DataGridViewColumn col in dgvApps.Columns)
-                {
-                    col.HeaderCell.Style.BackColor = Color.SteelBlue;
-                    col.HeaderCell.Style.ForeColor = Color.White;
-                }
-
                 // Set column headers
                 if (dgvApps.Columns.Count > 0)
                 {
