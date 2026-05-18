@@ -288,7 +288,8 @@ namespace ClinicApp.Forms
 
                 // Heights to give rows breathing room
                 RowTemplate = { Height = 40 }, // Row ki height 40px ki taake text squished na ho
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 35,
                 ColumnHeadersVisible = true, // Explicitly show column headers
 
                 // Windows ke default themes ko use karne ke liye

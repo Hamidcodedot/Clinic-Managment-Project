@@ -16,6 +16,17 @@ namespace ClinicApp
             try
             {
                 DatabaseHelper.InitializeDatabase();
+                
+                // Diagnostic check
+                var repo = new ClinicApp.Repositories.DoctorRepository();
+                var docs = repo.GetAll();
+                string docNames = "";
+                foreach (var d in docs)
+                {
+                    docNames += $"{d.DoctorID}: {d.Name} ({d.Specialization})\n";
+                }
+                MessageBox.Show("Diagnostics - Doctors in Repo:\n" + (string.IsNullOrEmpty(docNames) ? "NONE" : docNames), "Diagnostics");
+
                 Application.Run(new RoleSelectForm());
             }
             catch (Exception ex)

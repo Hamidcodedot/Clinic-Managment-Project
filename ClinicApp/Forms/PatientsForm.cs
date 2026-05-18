@@ -75,7 +75,8 @@ namespace ClinicApp.Forms
                 CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
                 GridColor = Color.FromArgb(230, 235, 240),
                 RowTemplate = { Height = 40 },
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize,
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 35,
                 ColumnHeadersVisible = true, // Explicitly show column headers
                 EnableHeadersVisualStyles = true
             };
@@ -151,6 +152,7 @@ namespace ClinicApp.Forms
         {
             try
             {
+                query = query?.Trim();
                 dgvPatients.DataSource = string.IsNullOrEmpty(query) ? repo.GetAll() : repo.Search(query);
 
                 if (dgvPatients.Columns.Count > 0)
