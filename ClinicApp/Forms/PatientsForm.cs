@@ -18,6 +18,7 @@ namespace ClinicApp.Forms
 
         private void LoadData(string query = "")
         {
+            if (dgvPatients == null) return;
             try
             {
                 dgvPatients.DataSource = string.IsNullOrEmpty(query) ? repo.GetAll() : repo.Search(query);

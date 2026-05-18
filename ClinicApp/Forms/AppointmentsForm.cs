@@ -75,6 +75,7 @@ namespace ClinicApp.Forms
 
         private void CmbPatient_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbPatient == null || txtName == null || txtPhone == null || txtAge == null || cmbGender == null || txtAddress == null || chkEditPatient == null) return;
             if (cmbPatient.SelectedIndex == 0) // -- [New Patient] --
             {
                 chkEditPatient.Visible = false;
@@ -113,6 +114,7 @@ namespace ClinicApp.Forms
 
         private void ChkEditPatient_CheckedChanged(object sender, EventArgs e)
         {
+            if (chkEditPatient == null || cmbPatient == null || txtName == null || txtPhone == null || txtAge == null || cmbGender == null || txtAddress == null) return;
             bool isEditable = chkEditPatient.Checked || cmbPatient.SelectedIndex == 0;
             txtName.ReadOnly = !isEditable;
             txtPhone.ReadOnly = !isEditable;
@@ -123,6 +125,7 @@ namespace ClinicApp.Forms
 
         private void CmbDoctor_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbDoctor == null || dtpDate == null) return;
             if (cmbDoctor.SelectedItem is Doctor doc)
             {
                 // Auto-adjust date to nearest available day if the current one is invalid
@@ -138,6 +141,7 @@ namespace ClinicApp.Forms
 
         private void DtpDate_ValueChanged(object sender, EventArgs e)
         {
+            if (dtpDate == null) return;
             UpdateDoctorInfoAndSlots();
         }
 
@@ -160,6 +164,7 @@ namespace ClinicApp.Forms
 
         private void UpdateDoctorInfoAndSlots()
         {
+            if (cmbDoctor == null || dtpDate == null || lblDoctorInfo == null || cmbTimeSlot == null) return;
             if (cmbDoctor.SelectedItem is Doctor doc)
             {
                 // Check if doctor is available on the selected day
@@ -403,6 +408,7 @@ namespace ClinicApp.Forms
 
         private void DgvApps_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvApps == null || cmbGridStatus == null) return;
             if (dgvApps.SelectedRows.Count > 0)
             {
                 var row = dgvApps.SelectedRows[0];
@@ -419,6 +425,7 @@ namespace ClinicApp.Forms
 
         private void DgvApps_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            if (dgvApps == null) return;
             if (dgvApps.Columns.Count > e.ColumnIndex && dgvApps.Columns[e.ColumnIndex].Name == "BookedBy" && e.Value != null)
             {
                 if (e.Value.ToString() == "Patient")
