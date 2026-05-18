@@ -81,6 +81,7 @@ namespace ClinicApp.Forms
                 RowTemplate = { Height = 40 },
                 ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
                 ColumnHeadersHeight = 45,
+                ColumnHeadersVisible = true, // Explicitly show column headers
                 EnableHeadersVisualStyles = false
             };
 
@@ -122,13 +123,10 @@ namespace ClinicApp.Forms
             buttonPanel.Controls.Add(btnEdit);
             buttonPanel.Controls.Add(btnDelete);
 
-            // Add to Grid Panel in strict order
-            gridPanel.Controls.Add(dgvDoctors);
+            // Add docked controls first, and then the Fill control last to prevent overlapping
             gridPanel.Controls.Add(pnlSearch);
             gridPanel.Controls.Add(buttonPanel);
-
-            // Send DockStyle.Fill control to back so it properly fills space between top & bottom docked panels
-            dgvDoctors.SendToBack();
+            gridPanel.Controls.Add(dgvDoctors);
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);

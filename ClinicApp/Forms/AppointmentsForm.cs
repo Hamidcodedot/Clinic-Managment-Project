@@ -273,6 +273,7 @@ namespace ClinicApp.Forms
                 RowTemplate = { Height = 40 }, // Row ki height 40px ki taake text squished na ho
                 ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
                 ColumnHeadersHeight = 45, // Headers ki height 45px
+                ColumnHeadersVisible = true, // Explicitly show column headers
 
                 // Windows ke default themes ko overrides karne ke liye
                 EnableHeadersVisualStyles = false
@@ -362,11 +363,8 @@ namespace ClinicApp.Forms
             pnlActions.Controls.Add(btnDelete);
             pnlActions.Controls.Add(btnRefresh);
 
-            pnlList.Controls.Add(dgvApps);
             pnlList.Controls.Add(pnlActions);
-
-            // Send DockStyle.Fill control to back so it properly fills space between top & bottom docked panels
-            dgvApps.SendToBack();
+            pnlList.Controls.Add(dgvApps); // Add Fill control last to prevent overlapping
 
             // Add Panels to Form
             this.Controls.Add(pnlList);
