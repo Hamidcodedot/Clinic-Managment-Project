@@ -44,16 +44,37 @@ namespace ClinicApp.Forms
             Label lblHeader = new Label { Text = "Patient Details", Font = new Font("Segoe UI", 14F, FontStyle.Bold), Dock = DockStyle.Top, Height = 40 };
             inputPanel.Controls.Add(lblHeader);
 
-            txtName = CreateInput(inputPanel, "Name*", 60);
-            txtAge = CreateInput(inputPanel, "Age", 120);
+            // Name Input
+            Label lblName = new Label { Text = "Name*", Location = new Point(20, 60), AutoSize = true };
+            txtName = new TextBox { Location = new Point(20, 80), Width = 230 };
+            inputPanel.Controls.Add(lblName);
+            inputPanel.Controls.Add(txtName);
+
+            // Age Input
+            Label lblAge = new Label { Text = "Age", Location = new Point(20, 120), AutoSize = true };
+            txtAge = new TextBox { Location = new Point(20, 140), Width = 230 };
+            inputPanel.Controls.Add(lblAge);
+            inputPanel.Controls.Add(txtAge);
             
-            inputPanel.Controls.Add(new Label { Text = "Gender", Location = new Point(20, 180), AutoSize = true });
+            // Gender Input
+            Label lblGender = new Label { Text = "Gender", Location = new Point(20, 180), AutoSize = true };
+            inputPanel.Controls.Add(lblGender);
+
             cmbGender = new ComboBox { Location = new Point(20, 200), Width = 230, DropDownStyle = ComboBoxStyle.DropDownList };
             cmbGender.Items.AddRange(new string[] { "Male", "Female", "Other" });
             inputPanel.Controls.Add(cmbGender);
 
-            txtPhone = CreateInput(inputPanel, "Phone*", 240);
-            txtAddress = CreateInput(inputPanel, "Address", 300);
+            // Phone Input
+            Label lblPhone = new Label { Text = "Phone*", Location = new Point(20, 240), AutoSize = true };
+            txtPhone = new TextBox { Location = new Point(20, 260), Width = 230 };
+            inputPanel.Controls.Add(lblPhone);
+            inputPanel.Controls.Add(txtPhone);
+
+            // Address Input
+            Label lblAddress = new Label { Text = "Address", Location = new Point(20, 300), AutoSize = true };
+            txtAddress = new TextBox { Location = new Point(20, 320), Width = 230 };
+            inputPanel.Controls.Add(lblAddress);
+            inputPanel.Controls.Add(txtAddress);
 
             btnSave = new Button { Text = "Save", Location = new Point(20, 370), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
             btnSave.Click += BtnSave_Click;
@@ -97,14 +118,6 @@ namespace ClinicApp.Forms
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
-        }
-
-        private TextBox CreateInput(Control parent, string label, int y)
-        {
-            parent.Controls.Add(new Label { Text = label, Location = new Point(20, y), AutoSize = true });
-            TextBox tb = new TextBox { Location = new Point(20, y + 20), Width = 230 };
-            parent.Controls.Add(tb);
-            return tb;
         }
 
         #endregion

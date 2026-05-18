@@ -64,10 +64,33 @@ namespace ClinicApp.Forms
                 FlowDirection = FlowDirection.LeftToRight
             };
 
-            lblTotalDoctors = CreateStatCard(statsPanel, "Total Doctors", "0", Color.FromArgb(52, 152, 219));
-            lblTotalPatients = CreateStatCard(statsPanel, "Total Patients", "0", Color.FromArgb(46, 204, 113));
-            lblTodayAppointments = CreateStatCard(statsPanel, "Today's Appts", "0", Color.FromArgb(155, 89, 182));
-            lblPendingAppts = CreateStatCard(statsPanel, "Pending Appts", "0", Color.FromArgb(231, 76, 60));
+            // Stat Card - Doctors
+            Panel pTotalDoctors = new Panel { Size = new Size(170, 100), BackColor = Color.FromArgb(52, 152, 219), Margin = new Padding(10) };
+            pTotalDoctors.Controls.Add(new Label { Text = "Total Doctors", ForeColor = Color.White, Font = new Font("Segoe UI", 10F, FontStyle.Bold), Location = new Point(10, 10), AutoSize = true });
+            lblTotalDoctors = new Label { Text = "0", ForeColor = Color.White, Font = new Font("Segoe UI", 20F, FontStyle.Bold), Location = new Point(10, 40), AutoSize = true };
+            pTotalDoctors.Controls.Add(lblTotalDoctors);
+            statsPanel.Controls.Add(pTotalDoctors);
+
+            // Stat Card - Patients
+            Panel pTotalPatients = new Panel { Size = new Size(170, 100), BackColor = Color.FromArgb(46, 204, 113), Margin = new Padding(10) };
+            pTotalPatients.Controls.Add(new Label { Text = "Total Patients", ForeColor = Color.White, Font = new Font("Segoe UI", 10F, FontStyle.Bold), Location = new Point(10, 10), AutoSize = true });
+            lblTotalPatients = new Label { Text = "0", ForeColor = Color.White, Font = new Font("Segoe UI", 20F, FontStyle.Bold), Location = new Point(10, 40), AutoSize = true };
+            pTotalPatients.Controls.Add(lblTotalPatients);
+            statsPanel.Controls.Add(pTotalPatients);
+
+            // Stat Card - Today's Appointments
+            Panel pTodayAppointments = new Panel { Size = new Size(170, 100), BackColor = Color.FromArgb(155, 89, 182), Margin = new Padding(10) };
+            pTodayAppointments.Controls.Add(new Label { Text = "Today's Appts", ForeColor = Color.White, Font = new Font("Segoe UI", 10F, FontStyle.Bold), Location = new Point(10, 10), AutoSize = true });
+            lblTodayAppointments = new Label { Text = "0", ForeColor = Color.White, Font = new Font("Segoe UI", 20F, FontStyle.Bold), Location = new Point(10, 40), AutoSize = true };
+            pTodayAppointments.Controls.Add(lblTodayAppointments);
+            statsPanel.Controls.Add(pTodayAppointments);
+
+            // Stat Card - Pending Appointments
+            Panel pPendingAppts = new Panel { Size = new Size(170, 100), BackColor = Color.FromArgb(231, 76, 60), Margin = new Padding(10) };
+            pPendingAppts.Controls.Add(new Label { Text = "Pending Appts", ForeColor = Color.White, Font = new Font("Segoe UI", 10F, FontStyle.Bold), Location = new Point(10, 10), AutoSize = true });
+            lblPendingAppts = new Label { Text = "0", ForeColor = Color.White, Font = new Font("Segoe UI", 20F, FontStyle.Bold), Location = new Point(10, 40), AutoSize = true };
+            pPendingAppts.Controls.Add(lblPendingAppts);
+            statsPanel.Controls.Add(pPendingAppts);
 
             Panel navPanel = new Panel
             {
@@ -75,10 +98,28 @@ namespace ClinicApp.Forms
             };
 
             // Two large centered buttons
-            Button btnDocs = CreateNavButton("Manage Doctors", 130, 10);
+            Button btnDocs = new Button
+            {
+                Text = "Manage Doctors",
+                Size = new Size(240, 70),
+                Location = new Point(130, 10),
+                BackColor = Color.SteelBlue,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold)
+            };
             btnDocs.Click += (s, e) => new DoctorsForm().ShowDialog();
 
-            Button btnApps = CreateNavButton("Manage Appointments", 390, 10);
+            Button btnApps = new Button
+            {
+                Text = "Manage Appointments",
+                Size = new Size(240, 70),
+                Location = new Point(390, 10),
+                BackColor = Color.SteelBlue,
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 11F, FontStyle.Bold)
+            };
             btnApps.Click += (s, e) => new AppointmentsForm().ShowDialog();
 
             Button btnLogout = new Button
@@ -111,54 +152,6 @@ namespace ClinicApp.Forms
                 
                 statsPanel.Location = new Point((this.ClientSize.Width - statsPanel.Width) / 2, startY);
                 navPanel.Location = new Point((this.ClientSize.Width - navPanel.Width) / 2, startY + statsPanel.Height + 20);
-            };
-        }
-
-        private Label CreateStatCard(Control parent, string title, string value, Color color)
-        {
-            Panel p = new Panel
-            {
-                Size = new Size(170, 100),
-                BackColor = color,
-                Margin = new Padding(10)
-            };
-
-            Label titleLbl = new Label
-            {
-                Text = title,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
-                Location = new Point(10, 10),
-                AutoSize = true
-            };
-
-            Label valueLbl = new Label
-            {
-                Text = value,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 20F, FontStyle.Bold),
-                Location = new Point(10, 40),
-                AutoSize = true
-            };
-
-            p.Controls.Add(titleLbl);
-            p.Controls.Add(valueLbl);
-            parent.Controls.Add(p);
-
-            return valueLbl;
-        }
-
-        private Button CreateNavButton(string text, int x, int y)
-        {
-            return new Button
-            {
-                Text = text,
-                Size = new Size(240, 70),
-                Location = new Point(x, y),
-                BackColor = Color.SteelBlue,
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 11F, FontStyle.Bold)
             };
         }
 

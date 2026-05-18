@@ -46,14 +46,47 @@ namespace ClinicApp.Forms
             Label lblHeader = new Label { Text = "Doctor Details", Font = new Font("Segoe UI", 14F, FontStyle.Bold), Location = new Point(20, 15), Size = new Size(230, 30) };
             inputPanel.Controls.Add(lblHeader);
 
-            // Spaced Inputs
-            txtName = CreateInput(inputPanel, "Name*", 55);
-            txtSpec = CreateInput(inputPanel, "Specialization*", 115);
-            txtPhone = CreateInput(inputPanel, "Phone", 175);
-            txtDays = CreateInput(inputPanel, "Available Days (e.g. Mon, Wed, Fri)", 235);
-            txtSlots = CreateInput(inputPanel, "Available Slots (comma separated)", 295);
-            txtRoom = CreateInput(inputPanel, "Room Number", 355);
-            txtFee = CreateInput(inputPanel, "Fee (Rs.)", 415);
+            // Name Input
+            Label lblName = new Label { Text = "Name*", Location = new Point(20, 55), AutoSize = true };
+            txtName = new TextBox { Location = new Point(20, 75), Width = 230 };
+            inputPanel.Controls.Add(lblName);
+            inputPanel.Controls.Add(txtName);
+
+            // Specialization Input
+            Label lblSpec = new Label { Text = "Specialization*", Location = new Point(20, 115), AutoSize = true };
+            txtSpec = new TextBox { Location = new Point(20, 135), Width = 230 };
+            inputPanel.Controls.Add(lblSpec);
+            inputPanel.Controls.Add(txtSpec);
+
+            // Phone Input
+            Label lblPhone = new Label { Text = "Phone", Location = new Point(20, 175), AutoSize = true };
+            txtPhone = new TextBox { Location = new Point(20, 195), Width = 230 };
+            inputPanel.Controls.Add(lblPhone);
+            inputPanel.Controls.Add(txtPhone);
+
+            // Available Days Input
+            Label lblDays = new Label { Text = "Available Days (e.g. Mon, Wed, Fri)", Location = new Point(20, 235), AutoSize = true };
+            txtDays = new TextBox { Location = new Point(20, 255), Width = 230 };
+            inputPanel.Controls.Add(lblDays);
+            inputPanel.Controls.Add(txtDays);
+
+            // Available Slots Input
+            Label lblSlots = new Label { Text = "Available Slots (comma separated)", Location = new Point(20, 295), AutoSize = true };
+            txtSlots = new TextBox { Location = new Point(20, 315), Width = 230 };
+            inputPanel.Controls.Add(lblSlots);
+            inputPanel.Controls.Add(txtSlots);
+
+            // Room Number Input
+            Label lblRoom = new Label { Text = "Room Number", Location = new Point(20, 355), AutoSize = true };
+            txtRoom = new TextBox { Location = new Point(20, 375), Width = 230 };
+            inputPanel.Controls.Add(lblRoom);
+            inputPanel.Controls.Add(txtRoom);
+
+            // Fee Input
+            Label lblFee = new Label { Text = "Fee (Rs.)", Location = new Point(20, 415), AutoSize = true };
+            txtFee = new TextBox { Location = new Point(20, 435), Width = 230 };
+            inputPanel.Controls.Add(lblFee);
+            inputPanel.Controls.Add(txtFee);
 
             btnSave = new Button { Text = "Save", Location = new Point(20, 485), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat, Font = new Font("Segoe UI", 9F, FontStyle.Bold) };
             btnSave.Click += BtnSave_Click;
@@ -111,14 +144,6 @@ namespace ClinicApp.Forms
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);
-        }
-
-        private TextBox CreateInput(Control parent, string label, int y)
-        {
-            parent.Controls.Add(new Label { Text = label, Location = new Point(20, y), AutoSize = true });
-            TextBox tb = new TextBox { Location = new Point(20, y + 20), Width = 230 };
-            parent.Controls.Add(tb);
-            return tb;
         }
 
         #endregion
