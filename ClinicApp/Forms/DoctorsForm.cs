@@ -112,10 +112,33 @@ namespace ClinicApp.Forms
             buttonPanel.Controls.Add(btnEdit);
             buttonPanel.Controls.Add(btnDelete);
 
+            // Divider Line Panel with spacing
+            Panel pnlDivider = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 15,
+                Padding = new Padding(0, 6, 0, 6),
+                BackColor = Color.White
+            };
+            Panel dividerLine = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 2,
+                BackColor = Color.FromArgb(218, 224, 233) // Premium light grey border/divider color
+            };
+            pnlDivider.Controls.Add(dividerLine);
+
             // Add docked controls first, and then the Fill control last to prevent overlapping
             gridPanel.Controls.Add(pnlSearch);
+            gridPanel.Controls.Add(pnlDivider);
             gridPanel.Controls.Add(buttonPanel);
             gridPanel.Controls.Add(dgvDoctors);
+
+            // Explicitly force correct docking Z-order sequence (prevents Fill control from overlapping Top/Bottom)
+            pnlSearch.BringToFront();
+            pnlDivider.BringToFront();
+            buttonPanel.BringToFront();
+            dgvDoctors.SendToBack();
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);

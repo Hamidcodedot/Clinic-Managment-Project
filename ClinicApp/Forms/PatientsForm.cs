@@ -54,10 +54,13 @@ namespace ClinicApp.Forms
             inputPanel.Controls.Add(btnClear);
 
             Panel gridPanel = new Panel { Dock = DockStyle.Fill, Padding = new Padding(20) };
-            txtSearch = new TextBox { Dock = DockStyle.Top, Font = new Font("Segoe UI", 11F) };
+            // Search Bar Panel
+            Panel pnlSearch = new Panel { Dock = DockStyle.Top, Height = 55 };
+            Label lblSearch = new Label { Text = "Search:", Location = new Point(0, 5), AutoSize = true, Font = new Font("Segoe UI", 9F, FontStyle.Bold) };
+            txtSearch = new TextBox { Location = new Point(0, 25), Width = 400, Font = new Font("Segoe UI", 11F) };
             txtSearch.TextChanged += (s, e) => LoadData(txtSearch.Text);
-            gridPanel.Controls.Add(new Label { Text = "Search:", Dock = DockStyle.Top, Height = 25 });
-            gridPanel.Controls.Add(txtSearch);
+            pnlSearch.Controls.Add(lblSearch);
+            pnlSearch.Controls.Add(txtSearch);
 
             dgvPatients = new DataGridView
             {
@@ -104,9 +107,33 @@ namespace ClinicApp.Forms
             buttonPanel.Controls.Add(btnEdit);
             buttonPanel.Controls.Add(btnDelete);
             
+            // Divider Line Panel with spacing
+            Panel pnlDivider = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 15,
+                Padding = new Padding(0, 6, 0, 6),
+                BackColor = Color.White
+            };
+            Panel dividerLine = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 2,
+                BackColor = Color.FromArgb(218, 224, 233) // Premium light grey border/divider color
+            };
+            pnlDivider.Controls.Add(dividerLine);
+
             // Add docked controls first, and then the Fill control last to prevent overlapping
+            gridPanel.Controls.Add(pnlSearch);
+            gridPanel.Controls.Add(pnlDivider);
             gridPanel.Controls.Add(buttonPanel);
             gridPanel.Controls.Add(dgvPatients);
+
+            // Explicitly force correct docking Z-order sequence (prevents Fill control from overlapping Top/Bottom)
+            pnlSearch.BringToFront();
+            pnlDivider.BringToFront();
+            buttonPanel.BringToFront();
+            dgvPatients.SendToBack();
 
             this.Controls.Add(gridPanel);
             this.Controls.Add(inputPanel);

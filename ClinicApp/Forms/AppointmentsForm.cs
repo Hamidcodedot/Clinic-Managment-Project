@@ -253,6 +253,23 @@ namespace ClinicApp.Forms
 
             pnlList.Controls.Add(pnlFilter);
 
+            // Divider Line Panel with spacing
+            Panel pnlDivider = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 15,
+                Padding = new Padding(0, 6, 0, 6),
+                BackColor = Color.White
+            };
+            Panel dividerLine = new Panel
+            {
+                Dock = DockStyle.Top,
+                Height = 2,
+                BackColor = Color.FromArgb(218, 224, 233) // Premium light grey border/divider color
+            };
+            pnlDivider.Controls.Add(dividerLine);
+            pnlList.Controls.Add(pnlDivider);
+
             // DataGridView Setup
             dgvApps = new DataGridView
             {
@@ -352,7 +369,13 @@ namespace ClinicApp.Forms
             pnlActions.Controls.Add(btnRefresh);
 
             pnlList.Controls.Add(pnlActions);
-            pnlList.Controls.Add(dgvApps); // Add Fill control last to prevent overlapping
+            pnlList.Controls.Add(dgvApps);
+
+            // Explicitly force correct docking Z-order sequence (prevents Fill control from overlapping Top/Bottom)
+            pnlFilter.BringToFront();
+            pnlDivider.BringToFront();
+            pnlActions.BringToFront();
+            dgvApps.SendToBack();
 
             // Add Panels to Form
             this.Controls.Add(pnlList);
