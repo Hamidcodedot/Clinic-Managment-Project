@@ -73,7 +73,54 @@ namespace ClinicApp.Forms
 
             pnlHistoryAndProfile = new Panel { Location = new Point(0, 130), Size = new Size(780, 450), Visible = false };
             pnlHistoryAndProfile.Controls.Add(new Label { Text = "Your Appointment History:", Location = new Point(0, 10), Font = new Font("Segoe UI", 10F, FontStyle.Bold) });
-            dgvMyAppts = new DataGridView { Location = new Point(0, 35), Size = new Size(780, 220), ReadOnly = true, SelectionMode = DataGridViewSelectionMode.FullRowSelect, AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill, BackgroundColor = Color.White, RowHeadersVisible = false, AllowUserToAddRows = false };
+            dgvMyAppts = new DataGridView
+            {
+                Location = new Point(0, 35),
+                Size = new Size(780, 220),
+                ReadOnly = true,
+                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
+                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
+                BackgroundColor = Color.White,
+                RowHeadersVisible = false,
+                AllowUserToAddRows = false,
+                BorderStyle = BorderStyle.None,
+                CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
+                GridColor = Color.FromArgb(230, 235, 240),
+                RowTemplate = { Height = 40 },
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 45,
+                EnableHeadersVisualStyles = false
+            };
+
+            // Headers Styling (Matching the SeaGreen theme of PatientPortalForm)
+            dgvMyAppts.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.SeaGreen,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                SelectionBackColor = Color.SeaGreen,
+                SelectionForeColor = Color.White
+            };
+
+            // Default Cell Styling
+            dgvMyAppts.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(44, 62, 80),
+                Font = new Font("Segoe UI", 9F),
+                SelectionBackColor = Color.FromArgb(220, 245, 230), // Soft green selection to match portal theme
+                SelectionForeColor = Color.FromArgb(44, 62, 80),
+                Padding = new Padding(10, 0, 10, 0)
+            };
+
+            // Alternating Row Style
+            dgvMyAppts.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 254, 252),
+                SelectionBackColor = Color.FromArgb(220, 245, 230),
+                SelectionForeColor = Color.FromArgb(44, 62, 80)
+            };
             pnlHistoryAndProfile.Controls.Add(dgvMyAppts);
 
             Panel pnlCP = new Panel { Location = new Point(0, 270), Size = new Size(780, 80), BorderStyle = BorderStyle.FixedSingle };

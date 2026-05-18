@@ -66,10 +66,42 @@ namespace ClinicApp.Forms
                 SelectionMode = DataGridViewSelectionMode.FullRowSelect,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
                 BackgroundColor = Color.White,
-                BorderStyle = BorderStyle.None,
                 RowHeadersVisible = false,
                 AllowUserToAddRows = false,
-                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.FromArgb(235, 245, 251) }
+                BorderStyle = BorderStyle.None,
+                CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
+                GridColor = Color.FromArgb(230, 235, 240),
+                RowTemplate = { Height = 40 },
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 45,
+                EnableHeadersVisualStyles = false
+            };
+
+            dgvPatients.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.SteelBlue,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                SelectionBackColor = Color.SteelBlue,
+                SelectionForeColor = Color.White
+            };
+
+            dgvPatients.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(44, 62, 80),
+                Font = new Font("Segoe UI", 9F),
+                SelectionBackColor = Color.FromArgb(220, 235, 252),
+                SelectionForeColor = Color.FromArgb(44, 62, 80),
+                Padding = new Padding(10, 0, 10, 0)
+            };
+
+            dgvPatients.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 252, 254),
+                SelectionBackColor = Color.FromArgb(220, 235, 252),
+                SelectionForeColor = Color.FromArgb(44, 62, 80)
             };
             gridPanel.Controls.Add(dgvPatients);
 

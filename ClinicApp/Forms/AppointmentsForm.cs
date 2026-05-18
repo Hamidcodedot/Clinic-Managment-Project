@@ -263,11 +263,54 @@ namespace ClinicApp.Forms
                 BackgroundColor = Color.White,
                 RowHeadersVisible = false,
                 AllowUserToAddRows = false,
-                BorderStyle = BorderStyle.Fixed3D,
-                AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle { BackColor = Color.FromArgb(245, 249, 253) }
+
+                // Modern flat border aur horizontal borders
+                BorderStyle = BorderStyle.None,
+                CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
+                GridColor = Color.FromArgb(230, 235, 240), // Halka solid border line color
+
+                // Heights to give rows breathing room
+                RowTemplate = { Height = 40 }, // Row ki height 40px ki taake text squished na ho
+                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
+                ColumnHeadersHeight = 45, // Headers ki height 45px
+
+                // Windows ke default themes ko overrides karne ke liye
+                EnableHeadersVisualStyles = false
             };
+
+            // Headers Styling (Premium Header Look)
+            dgvApps.ColumnHeadersDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.SteelBlue,
+                ForeColor = Color.White,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                Alignment = DataGridViewContentAlignment.MiddleLeft,
+                SelectionBackColor = Color.SteelBlue, // Header select hone par same color rahe
+                SelectionForeColor = Color.White
+            };
+
+            // Default Cell Styling (Clean & Readable)
+            dgvApps.DefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.White,
+                ForeColor = Color.FromArgb(44, 62, 80), // Modern dark slate color
+                Font = new Font("Segoe UI", 9F),
+                SelectionBackColor = Color.FromArgb(220, 235, 252), // Premium soft blue select background
+                SelectionForeColor = Color.FromArgb(44, 62, 80), // Soft blue par readable dark text
+                Padding = new Padding(10, 0, 10, 0) // Cells ke andar horizontal gap
+            };
+
+            // Alternating Row Style (Subtle Zebra Striping)
+            dgvApps.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(250, 252, 254), // Subtle row color tint
+                SelectionBackColor = Color.FromArgb(220, 235, 252),
+                SelectionForeColor = Color.FromArgb(44, 62, 80)
+            };
+
             dgvApps.CellFormatting += DgvApps_CellFormatting;
             dgvApps.SelectionChanged += DgvApps_SelectionChanged;
+
 
             // Action Panel at the Bottom (with dedicated Status Update Dropdown)
             Panel pnlActions = new Panel
