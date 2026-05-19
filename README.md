@@ -98,15 +98,31 @@ To test the application immediately, use the following pre-configured credential
 
 ## 🚀 How to Run/Deploy on Any Other Computer
 
-Because this application uses a local SQLite database (`clinic.db`), it is **fully portable**. To run it on another computer without installing Visual Studio or copying source code:
+Because this application uses a local SQLite database (`clinic.db`), it is **fully portable** and does not require any database installations.
 
-1.  Open terminal in the project directory and run the publish command:
+### 📦 Option 1: Use the Pre-Built Portable Package (Easiest)
+A pre-built, ready-to-run release package is available at the root of the project: **`ClinicApp_Release.zip`**.
+
+#### How to Deploy & Run:
+1.  **Transfer the Zip**: Copy `ClinicApp_Release.zip` to a USB drive or send it to the target Windows computer.
+2.  **Extract the Files**: Right-click the zip file and select **Extract All...** to unzip it to a folder of your choice.
+3.  **Run the App**: Open the extracted folder and double-click **`ClinicApp.exe`**.
+4.  **Database Auto-creation**: The application will automatically initialize a fresh `clinic.db` in that folder on its first startup and pre-populate the tables with default demo data.
+
+---
+
+### 🛠️ Option 2: Build a Custom Release Package from Source
+If you want to compile and publish the latest source code yourself:
+
+1.  Open your terminal/command line in the project root directory.
+2.  Run the publish command:
     ```bash
-    dotnet publish ClinicApp/ClinicApp.csproj -c Release -r win-x64 --self-contained true
+    dotnet publish ClinicApp/ClinicApp.csproj -c Release
     ```
-2.  Go to the published directory:
+3.  Navigate to the publish directory:
     ```text
-    ClinicApp/bin/Release/net472/win-x64/publish/
+    ClinicApp/bin/Release/publish/
     ```
-3.  Copy the entire `publish` folder onto a USB drive or zip it.
-4.  Paste it onto any target Windows computer and run **`ClinicApp.exe`** directly!
+4.  Copy the `x64` and `x86` folders containing the native `SQLite.Interop.dll` from `ClinicApp/bin/Release/` into your `publish/` folder (required for SQLite to resolve native binaries on target systems).
+5.  Zip the final `publish` folder or copy it directly to your target Windows computer and run **`ClinicApp.exe`**.
+
