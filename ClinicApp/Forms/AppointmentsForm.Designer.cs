@@ -33,7 +33,8 @@ namespace ClinicApp.Forms
                 Width = 380,
                 BackColor = Color.FromArgb(248, 249, 250),
                 Padding = new Padding(15, 10, 15, 10),
-                BorderStyle = BorderStyle.FixedSingle
+                BorderStyle = BorderStyle.FixedSingle,
+                AutoScroll = true
             };
 
             Label lblTitle = new Label
@@ -296,16 +297,15 @@ namespace ClinicApp.Forms
             pnlList.Controls.Add(dgvApps);
 
             // Explicitly force correct docking Z-order sequence
-            pnlFilter.BringToFront();
-            pnlDivider.BringToFront();
-            pnlActions.BringToFront();
-            dgvApps.SendToBack();
+            pnlFilter.SendToBack();
+            pnlDivider.SendToBack();
+            pnlActions.SendToBack();
+            dgvApps.BringToFront();
 
             // Add Panels to Form
             this.Controls.Add(pnlForm);
             this.Controls.Add(pnlList);
-            pnlForm.BringToFront();
-            pnlList.SendToBack();
+            pnlList.BringToFront();
         }
 
         private void StyleDataGrid(DataGridView grid)

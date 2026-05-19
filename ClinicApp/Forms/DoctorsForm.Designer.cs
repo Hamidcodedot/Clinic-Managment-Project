@@ -80,6 +80,7 @@ namespace ClinicApp.Forms
 
             Controls.Add(inputPanel);
             Controls.Add(gridPanel);
+            gridPanel.BringToFront();
         }
 
         private Panel CreateInputSidebar(string title)
@@ -89,7 +90,8 @@ namespace ClinicApp.Forms
                 Dock = DockStyle.Left,
                 Width = 300,
                 BackColor = Color.FromArgb(248, 249, 250),
-                Padding = new Padding(20)
+                Padding = new Padding(20),
+                AutoScroll = true
             };
             panel.Controls.Add(new Label
             {
@@ -153,11 +155,11 @@ namespace ClinicApp.Forms
         private void FixGridDockOrder(Control gridPanel, params Control[] topAndBottom)
         {
             foreach (var c in topAndBottom)
-                c.BringToFront();
+                c.SendToBack();
             foreach (Control c in gridPanel.Controls)
             {
                 if (c is DataGridView dgv)
-                    dgv.SendToBack();
+                    dgv.BringToFront();
             }
         }
 

@@ -50,15 +50,12 @@ namespace ClinicApp.Forms
             lblTodayAppointments = CreateStatCard(statsPanel, "Today's Appointments", "0", Color.FromArgb(155, 89, 182));
             lblPendingAppts = CreateStatCard(statsPanel, "Pending", "0", Color.FromArgb(231, 76, 60));
 
-            navPanel = new Panel { Size = new Size(920, 200) };
+            navPanel = new Panel { Size = new Size(620, 200) };
 
             var btnDocs = NavTile("Manage Doctors", 0);
             btnDocs.Click += (s, e) => { using (var f = new DoctorsForm()) f.ShowDialog(); RefreshStats(); };
 
-            var btnPats = NavTile("Manage Patients", 1);
-            btnPats.Click += (s, e) => { using (var f = new PatientsForm()) f.ShowDialog(); RefreshStats(); };
-
-            var btnApps = NavTile("Manage Appointments", 2);
+            var btnApps = NavTile("Manage Appointments", 1);
             btnApps.Click += (s, e) => { using (var f = new AppointmentsForm()) f.ShowDialog(); RefreshStats(); };
 
             // SecondaryButton: Logout
@@ -71,13 +68,12 @@ namespace ClinicApp.Forms
                 Font = new Font("Segoe UI", 10F, FontStyle.Bold),
                 Cursor = Cursors.Hand,
                 Size = new Size(140, 38),
-                Location = new Point(390, 130)
+                Location = new Point(240, 130)
             };
             btnLogout.FlatAppearance.BorderSize = 0;
             btnLogout.Click += (s, e) => { new RoleSelectForm().Show(); this.Close(); };
 
             navPanel.Controls.Add(btnDocs);
-            navPanel.Controls.Add(btnPats);
             navPanel.Controls.Add(btnApps);
             navPanel.Controls.Add(btnLogout);
 
