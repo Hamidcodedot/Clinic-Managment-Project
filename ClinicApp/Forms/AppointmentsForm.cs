@@ -270,29 +270,36 @@ namespace ClinicApp.Forms
 
         private void BtnBook_Click(object sender, EventArgs e)
         {
-            // 1. Validate Doctor and Time Slot
+            // --- STEP 1: Basic Validation ---
+            // Ensure that the user has selected a valid Doctor from the dropdown.
             if (cmbDoctor.SelectedItem == null)
             {
                 MessageBox.Show("Please select a Doctor.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // Ensure a valid time slot is selected (not empty or "No slots available").
             if (cmbTimeSlot.SelectedItem == null || cmbTimeSlot.SelectedItem.ToString() == "No slots available")
             {
                 MessageBox.Show("Please select a valid Time Slot.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 1.5 Validate Doctor Availability Day
+            // --- STEP 2: Doctor Schedule Validation ---
+            // Extract the first 3 letters of the selected day (e.g., "Mon", "Tue") to compare against the doctor's schedule.
             Doctor doc = (Doctor)cmbDoctor.SelectedItem;
             DateTime date = dtpDate.Value;
             string dayOfWeek = date.DayOfWeek.ToString().Substring(0, 3);
+
+            // If the doctor has specific days, check if the selected day matches.
+            // StringComparison.OrdinalIgnoreCase makes it case-insensitive.
             if (!string.IsNullOrWhiteSpace(doc.AvailableDays) && doc.AvailableDays.IndexOf(dayOfWeek, StringComparison.OrdinalIgnoreCase) < 0)
             {
                 MessageBox.Show($"Doctor is not scheduled to work on {date.DayOfWeek}. Please select one of their scheduled days: {doc.AvailableDays}", "Scheduling Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. Validate Patient Details
+            // --- STEP 3: Patient Data Validation & Saving ---
             if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtPhone.Text))
             {
                 MessageBox.Show("Patient Name and Phone are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -303,9 +310,10 @@ namespace ClinicApp.Forms
             {
                 int patientId = 0;
                 
-                if (cmbPatient.SelectedIndex == 0) // New Patient
+                // If the user selected the first item "-- [New Patient] --"
+                if (cmbPatient.SelectedIndex == 0)
                 {
-                    // Create and save new patient first
+                    // Map the UI text boxes to the Patient model
                     Patient newPat = new Patient
                     {
                         Name = txtName.Text.Trim(),
@@ -313,13 +321,14 @@ namespace ClinicApp.Forms
                         Gender = cmbGender.SelectedItem?.ToString() ?? "",
                         Phone = txtPhone.Text.Trim(),
                         Address = txtAddress.Text.Trim(),
-                        Password = txtPhone.Text.Trim() // Default password is their phone number
+                        Password = txtPhone.Text.Trim() // We default the patient's portal password to their phone number
                     };
 
-                    // Check if patient with this phone already exists to avoid duplication
+                    // Duplicate Check: Search the database by phone number
                     Patient existing = patRepo.GetByPhone(newPat.Phone);
                     if (existing != null)
                     {
+                        // If patient exists, prompt the user to use the existing profile instead of creating a duplicate
                         DialogResult res = MessageBox.Show(
                             $"A patient with Phone '{newPat.Phone}' already exists ({existing.Name}). Do you want to book the appointment for this existing patient?",
                             "Patient Exists",
@@ -328,23 +337,25 @@ namespace ClinicApp.Forms
                         );
                         if (res == DialogResult.Yes)
                         {
-                            patientId = existing.PatientID;
+                            patientId = existing.PatientID; // Use existing ID
                         }
                         else
                         {
-                            return;
+                            return; // Stop booking if user clicks 'No'
                         }
                     }
                     else
                     {
+                        // Save the new patient to DB and get the auto-generated ID
                         patientId = patRepo.Add(newPat);
                     }
                 }
+                // If the user selected an existing patient from the dropdown list
                 else if (cmbPatient.SelectedItem is Patient pat)
                 {
                     patientId = pat.PatientID;
 
-                    // If "Edit Patient Info" is enabled and checked, update the patient details
+                    // If the receptionist checked the "Edit Info" box, save any changes made to the textboxes
                     if (chkEditPatient.Checked)
                     {
                         pat.Name = txtName.Text.Trim();
@@ -357,31 +368,35 @@ namespace ClinicApp.Forms
                     }
                 }
 
+                // Failsafe: if something went wrong and ID wasn't retrieved
                 if (patientId <= 0)
                 {
                     MessageBox.Show("Could not resolve Patient ID.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // 3. Book Appointment (New bookings are always hardcoded to 'Pending')
+                // --- STEP 4: Create the Appointment Record ---
+                // Construct the Appointment model with the gathered IDs
                 Appointment app = new Appointment
                 {
                     PatientID = patientId,
                     DoctorID = doc.DoctorID,
-                    AppointmentDate = date.ToString("yyyy-MM-dd"),
+                    AppointmentDate = date.ToString("yyyy-MM-dd"), // Standardized date format for SQLite
                     AppointmentTime = cmbTimeSlot.SelectedItem.ToString(),
-                    Status = "Pending",
+                    Status = "Pending", // Default status for new appointments
                     Notes = txtNotes.Text.Trim(),
-                    BookedBy = "Staff"
+                    BookedBy = "Staff" // Audit trail to know who booked it
                 };
 
+                // Insert into the database
                 appRepo.Add(app);
                 
-                // 4. Reload lists and clear selection
-                LoadLookups(); // This will reload patients including the new one
+                // --- STEP 5: Refresh UI ---
+                // Reload dropdowns (so the new patient appears) and refresh the DataGridView
+                LoadLookups(); 
                 LoadData();
                 
-                // Clear notes and reset form
+                // Clean up the form fields for the next entry
                 txtNotes.Clear();
                 chkEditPatient.Checked = false;
             }

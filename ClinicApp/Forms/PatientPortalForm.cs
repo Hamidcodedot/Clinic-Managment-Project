@@ -23,15 +23,23 @@ namespace ClinicApp.Forms
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
+            // --- Authentication Logic ---
+            // Calls the PatientRepository to verify the phone number and password against the database.
             loggedInPatient = patRepo.Login(txtLoginPhone.Text.Trim(), txtLoginPassword.Text);
+            
+            // If the credentials don't match any record, 'loggedInPatient' will be null.
             if (loggedInPatient == null)
             {
                 MessageBox.Show("Invalid phone number or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // --- Success UI Updates ---
+            // Update the welcome label with the patient's name and show the data panel.
             lblRecordWelcome.Text = "Hello, " + loggedInPatient.Name;
             pnlHistoryAndProfile.Visible = true;
+            
+            // Load the patient's past and upcoming appointments into the grid.
             dgvMyAppts.DataSource = appRepo.GetByPatientId(loggedInPatient.PatientID);
 
             if (dgvMyAppts.Columns.Contains("AppointmentID")) dgvMyAppts.Columns["AppointmentID"].Visible = false;

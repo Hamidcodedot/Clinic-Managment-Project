@@ -33,8 +33,11 @@ namespace ClinicApp.Forms
         {
             try
             {
+                // Queries the database to count the total number of doctors and patients
                 lblTotalDoctors.Text = docRepo.GetAll().Count.ToString();
                 lblTotalPatients.Text = patRepo.GetAll().Count.ToString();
+                
+                // Queries the database for appointments that are scheduled for today, and those that are pending
                 lblTodayAppointments.Text = appRepo.GetTodayAppointmentCount().ToString();
                 lblPendingAppts.Text = appRepo.GetPendingAppointmentsCount().ToString();
             }

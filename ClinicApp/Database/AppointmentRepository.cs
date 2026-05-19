@@ -11,6 +11,9 @@ namespace ClinicApp.Database
         {
             using (var conn = DatabaseHelper.GetConnection())
             {
+                // --- SQL Injection Prevention ---
+                // We use parameterized queries (@pid, @did, etc.) instead of concatenating strings.
+                // This protects the database from SQL Injection attacks and handles special characters safely.
                 using (var cmd = new SQLiteCommand(@"INSERT INTO Appointments (PatientID, DoctorID, AppointmentDate, AppointmentTime, Status, Notes, BookedBy) 
                                                    VALUES (@pid, @did, @date, @time, @status, @notes, @bookedBy); SELECT last_insert_rowid();", conn))
                 {
@@ -21,6 +24,8 @@ namespace ClinicApp.Database
                     cmd.Parameters.AddWithValue("@status", app.Status);
                     cmd.Parameters.AddWithValue("@notes", app.Notes);
                     cmd.Parameters.AddWithValue("@bookedBy", app.BookedBy);
+                    
+                    // Executes the query and returns the newly generated AppointmentID
                     return Convert.ToInt32(cmd.ExecuteScalar());
                 }
             }
@@ -31,17 +36,20 @@ namespace ClinicApp.Database
             var list = new List<Appointment>();
             using (var conn = DatabaseHelper.GetConnection())
             {
+                // Join query to fetch Appointment details along with the Patient and Doctor names
                 string sql = @"SELECT a.*, p.Name as PatientName, d.Name as DoctorName 
                                FROM Appointments a 
                                JOIN Patients p ON a.PatientID = p.PatientID 
                                JOIN Doctors d ON a.DoctorID = d.DoctorID 
                                WHERE 1=1";
                 
+                // Dynamically build the WHERE clause based on provided filters
                 if (!string.IsNullOrEmpty(dateFilter)) sql += " AND a.AppointmentDate = @date";
                 if (statusFilter != "All") sql += " AND a.Status = @status";
 
                 using (var cmd = new SQLiteCommand(sql, conn))
                 {
+                    // Add parameters conditionally
                     if (!string.IsNullOrEmpty(dateFilter)) cmd.Parameters.AddWithValue("@date", dateFilter);
                     if (statusFilter != "All") cmd.Parameters.AddWithValue("@status", statusFilter);
 

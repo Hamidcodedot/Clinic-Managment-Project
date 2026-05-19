@@ -18,6 +18,10 @@ namespace ClinicApp.Database
 
         public static void InitializeDatabase()
         {
+            // --- Database Creation ---
+            // Checks if the SQLite database file exists in the application directory.
+            // If it doesn't, it creates a new blank database file.
+            // This ensures the application works out-of-the-box on any new computer.
             if (!File.Exists(dbName))
             {
                 SQLiteConnection.CreateFile(dbName);
@@ -92,7 +96,10 @@ namespace ClinicApp.Database
                     )";
                     cmd.ExecuteNonQuery();
 
-                    // Insert Sample Data if empty
+                    // --- Seed Data Insertion ---
+                    // We count the users. If it's 0, it means this is a brand new database,
+                    // so we insert some sample data (Doctors, Patients, Appointments, and an Admin account)
+                    // so the evaluator can test the application immediately.
                     cmd.CommandText = "SELECT COUNT(*) FROM Users";
                     long userCount = (long)cmd.ExecuteScalar();
 
