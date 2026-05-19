@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using ClinicApp.Database;
 using ClinicApp.Models;
 
-namespace ClinicApp.Repositories
+namespace ClinicApp.Database
 {
     public class PatientRepository
     {
@@ -37,16 +36,7 @@ namespace ClinicApp.Repositories
                     {
                         while (reader.Read())
                         {
-                            patients.Add(new Patient
-                            {
-                                PatientID = Convert.ToInt32(reader["PatientID"]),
-                                Name = reader["Name"].ToString(),
-                                Age = Convert.ToInt32(reader["Age"]),
-                                Gender = reader["Gender"].ToString(),
-                                Phone = reader["Phone"].ToString(),
-                                Address = reader["Address"].ToString(),
-                                Password = reader["Password"].ToString()
-                            });
+                            patients.Add(MapPatient(reader));
                         }
                     }
                 }
@@ -97,16 +87,7 @@ namespace ClinicApp.Repositories
                     {
                         while (reader.Read())
                         {
-                            patients.Add(new Patient
-                            {
-                                PatientID = Convert.ToInt32(reader["PatientID"]),
-                                Name = reader["Name"].ToString(),
-                                Age = Convert.ToInt32(reader["Age"]),
-                                Gender = reader["Gender"].ToString(),
-                                Phone = reader["Phone"].ToString(),
-                                Address = reader["Address"].ToString(),
-                                Password = reader["Password"].ToString()
-                            });
+                            patients.Add(MapPatient(reader));
                         }
                     }
                 }
@@ -126,16 +107,7 @@ namespace ClinicApp.Repositories
                     {
                         if (reader.Read())
                         {
-                            return new Patient
-                            {
-                                PatientID = Convert.ToInt32(reader["PatientID"]),
-                                Name = reader["Name"].ToString(),
-                                Age = Convert.ToInt32(reader["Age"]),
-                                Gender = reader["Gender"].ToString(),
-                                Phone = reader["Phone"].ToString(),
-                                Address = reader["Address"].ToString(),
-                                Password = reader["Password"].ToString()
-                            };
+                            return MapPatient(reader);
                         }
                     }
                 }
@@ -154,21 +126,26 @@ namespace ClinicApp.Repositories
                     {
                         if (reader.Read())
                         {
-                            return new Patient
-                            {
-                                PatientID = Convert.ToInt32(reader["PatientID"]),
-                                Name = reader["Name"].ToString(),
-                                Age = Convert.ToInt32(reader["Age"]),
-                                Gender = reader["Gender"].ToString(),
-                                Phone = reader["Phone"].ToString(),
-                                Address = reader["Address"].ToString(),
-                                Password = reader["Password"].ToString()
-                            };
+                            return MapPatient(reader);
                         }
                     }
                 }
             }
             return null;
+        }
+
+        private static Patient MapPatient(SQLiteDataReader reader)
+        {
+            return new Patient
+            {
+                PatientID = Convert.ToInt32(reader["PatientID"]),
+                Name = reader["Name"].ToString(),
+                Age = Convert.ToInt32(reader["Age"]),
+                Gender = reader["Gender"].ToString(),
+                Phone = reader["Phone"].ToString(),
+                Address = reader["Address"].ToString(),
+                Password = reader["Password"].ToString()
+            };
         }
     }
 }

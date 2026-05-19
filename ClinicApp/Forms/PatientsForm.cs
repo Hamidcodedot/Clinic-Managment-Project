@@ -1,153 +1,24 @@
 using System;
-using System.Drawing;
 using System.Windows.Forms;
+using ClinicApp.Database;
 using ClinicApp.Models;
-using ClinicApp.Repositories;
 
 namespace ClinicApp.Forms
 {
-    public class PatientsForm : Form
+    public partial class PatientsForm : Form
     {
         private DataGridView dgvPatients;
         private TextBox txtName, txtAge, txtPhone, txtAddress, txtSearch;
         private ComboBox cmbGender;
-        private Button btnSave, btnEdit, btnDelete, btnClear;
-        private PatientRepository repo = new PatientRepository();
-        private int selectedPatientID = 0;
+        private Button btnSave;
+        private readonly PatientRepository repo = new PatientRepository();
+        private int selectedPatientID;
+        private string savedPassword;
 
         public PatientsForm()
         {
             InitializeComponent();
             LoadData();
-        }
-
-        private void InitializeComponent()
-        {
-            this.Text = "Manage Patients";
-            this.Size = new Size(900, 600);
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.BackColor = Color.White;
-            this.Font = new Font("Segoe UI", 9F);
-
-            Panel inputPanel = new Panel { Dock = DockStyle.Left, Width = 300, Padding = new Padding(20) };
-            Label lblHeader = new Label { Text = "Patient Details", Font = new Font("Segoe UI", 14F, FontStyle.Bold), Dock = DockStyle.Top, Height = 40 };
-            inputPanel.Controls.Add(lblHeader);
-
-            txtName = CreateInput(inputPanel, "Name*", 60);
-            txtAge = CreateInput(inputPanel, "Age", 120);
-            
-            inputPanel.Controls.Add(new Label { Text = "Gender", Location = new Point(20, 180), AutoSize = true });
-            cmbGender = new ComboBox { Location = new Point(20, 200), Width = 230, DropDownStyle = ComboBoxStyle.DropDownList };
-            cmbGender.Items.AddRange(new string[] { "Male", "Female", "Other" });
-            inputPanel.Controls.Add(cmbGender);
-
-            txtPhone = CreateInput(inputPanel, "Phone*", 240);
-            txtAddress = CreateInput(inputPanel, "Address", 300);
-
-            btnSave = new Button { Text = "Save", Location = new Point(20, 370), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
-            btnSave.Click += BtnSave_Click;
-            
-            btnClear = new Button { Text = "Clear", Location = new Point(140, 370), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
-            btnClear.Click += (s, e) => ClearForm();
-
-            inputPanel.Controls.Add(btnSave);
-            inputPanel.Controls.Add(btnClear);
-
-            Panel gridPanel = new Panel { Dock = DockStyle.Fill, Padding = new Padding(20) };
-            // Search Bar Panel
-            Panel pnlSearch = new Panel { Dock = DockStyle.Top, Height = 55 };
-            Label lblSearch = new Label { Text = "Search:", Location = new Point(0, 5), AutoSize = true, Font = new Font("Segoe UI", 9F, FontStyle.Bold) };
-            txtSearch = new TextBox { Location = new Point(0, 25), Width = 400, Font = new Font("Segoe UI", 11F) };
-            txtSearch.TextChanged += (s, e) => LoadData(txtSearch.Text);
-            pnlSearch.Controls.Add(lblSearch);
-            pnlSearch.Controls.Add(txtSearch);
-
-            dgvPatients = new DataGridView
-            {
-                Dock = DockStyle.Fill,
-                ReadOnly = true,
-                SelectionMode = DataGridViewSelectionMode.FullRowSelect,
-                AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill,
-                BackgroundColor = Color.White,
-                RowHeadersVisible = false,
-                AllowUserToAddRows = false,
-                BorderStyle = BorderStyle.None,
-                CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal,
-                GridColor = Color.FromArgb(230, 235, 240),
-                RowTemplate = { Height = 40 },
-                ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing,
-                ColumnHeadersHeight = 35,
-                ColumnHeadersVisible = true, // Explicitly show column headers
-                EnableHeadersVisualStyles = true
-            };
-
-            dgvPatients.DefaultCellStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.White,
-                ForeColor = Color.FromArgb(44, 62, 80),
-                Font = new Font("Segoe UI", 9F),
-                SelectionBackColor = Color.FromArgb(220, 235, 252),
-                SelectionForeColor = Color.FromArgb(44, 62, 80),
-                Padding = new Padding(10, 0, 10, 0)
-            };
-
-            dgvPatients.AlternatingRowsDefaultCellStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.FromArgb(250, 252, 254),
-                SelectionBackColor = Color.FromArgb(220, 235, 252),
-                SelectionForeColor = Color.FromArgb(44, 62, 80)
-            };
-
-            Panel buttonPanel = new Panel { Dock = DockStyle.Bottom, Height = 60 };
-            btnEdit = new Button { Text = "Edit Selected", Location = new Point(20, 10), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
-            btnEdit.Click += BtnEdit_Click;
-            
-            btnDelete = new Button { Text = "Delete Selected", Location = new Point(140, 10), Size = new Size(110, 35), BackColor = Color.SteelBlue, ForeColor = Color.White, FlatStyle = FlatStyle.Flat };
-            btnDelete.Click += BtnDelete_Click;
-
-            buttonPanel.Controls.Add(btnEdit);
-            buttonPanel.Controls.Add(btnDelete);
-            
-            // Divider Line Panel with spacing
-            Panel pnlDivider = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 15,
-                Padding = new Padding(0, 6, 0, 6),
-                BackColor = Color.White
-            };
-            Panel dividerLine = new Panel
-            {
-                Dock = DockStyle.Top,
-                Height = 2,
-                BackColor = Color.FromArgb(218, 224, 233) // Premium light grey border/divider color
-            };
-            pnlDivider.Controls.Add(dividerLine);
-
-            // Add docked controls first, and then the Fill control last to prevent overlapping
-            gridPanel.Controls.Add(pnlSearch);
-            gridPanel.Controls.Add(pnlDivider);
-            gridPanel.Controls.Add(buttonPanel);
-            gridPanel.Controls.Add(dgvPatients);
-
-            // Explicitly force correct docking Z-order sequence (prevents Fill control from overlapping Top/Bottom)
-            pnlSearch.BringToFront();
-            pnlDivider.BringToFront();
-            buttonPanel.BringToFront();
-            dgvPatients.SendToBack();
-
-            this.Controls.Add(inputPanel);
-            this.Controls.Add(gridPanel);
-            inputPanel.BringToFront();
-            gridPanel.SendToBack();
-        }
-
-        private TextBox CreateInput(Control parent, string label, int y)
-        {
-            parent.Controls.Add(new Label { Text = label, Location = new Point(20, y), AutoSize = true });
-            TextBox tb = new TextBox { Location = new Point(20, y + 20), Width = 230 };
-            parent.Controls.Add(tb);
-            return tb;
         }
 
         private void LoadData(string query = "")
@@ -156,17 +27,8 @@ namespace ClinicApp.Forms
             {
                 query = query?.Trim();
                 dgvPatients.DataSource = string.IsNullOrEmpty(query) ? repo.GetAll() : repo.Search(query);
-
-                if (dgvPatients.Columns.Count > 0)
-                {
-                    if (dgvPatients.Columns.Contains("PatientID")) dgvPatients.Columns["PatientID"].Visible = false;
-                    if (dgvPatients.Columns.Contains("FullName")) dgvPatients.Columns["FullName"].HeaderText = "Full Name";
-                    if (dgvPatients.Columns.Contains("Gender")) dgvPatients.Columns["Gender"].HeaderText = "Gender";
-                    if (dgvPatients.Columns.Contains("Age")) dgvPatients.Columns["Age"].HeaderText = "Age";
-                    if (dgvPatients.Columns.Contains("Phone")) dgvPatients.Columns["Phone"].HeaderText = "Phone";
-                    if (dgvPatients.Columns.Contains("Address")) dgvPatients.Columns["Address"].HeaderText = "Address";
-                    if (dgvPatients.Columns.Contains("Password")) dgvPatients.Columns["Password"].Visible = false;
-                }
+                if (dgvPatients.Columns.Contains("PatientID")) dgvPatients.Columns["PatientID"].Visible = false;
+                if (dgvPatients.Columns.Contains("Password")) dgvPatients.Columns["Password"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -182,6 +44,7 @@ namespace ClinicApp.Forms
             txtPhone.Clear();
             txtAddress.Clear();
             selectedPatientID = 0;
+            savedPassword = null;
             btnSave.Text = "Save";
         }
 
@@ -189,27 +52,26 @@ namespace ClinicApp.Forms
         {
             if (string.IsNullOrWhiteSpace(txtName.Text) || string.IsNullOrWhiteSpace(txtPhone.Text))
             {
-                MessageBox.Show("Name and Phone are required.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Name and Phone are required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                Patient p = new Patient
+                var p = new Patient
                 {
                     PatientID = selectedPatientID,
-                    Name = txtName.Text,
+                    Name = txtName.Text.Trim(),
                     Age = int.TryParse(txtAge.Text, out int a) ? a : 0,
                     Gender = cmbGender.SelectedItem?.ToString() ?? "",
-                    Phone = txtPhone.Text,
-                    Address = txtAddress.Text,
-                    Password = txtPhone.Text // Default password is their phone number
+                    Phone = txtPhone.Text.Trim(),
+                    Address = txtAddress.Text.Trim(),
+                    Password = selectedPatientID == 0 ? txtPhone.Text.Trim() : (savedPassword ?? txtPhone.Text.Trim())
                 };
 
                 if (selectedPatientID == 0) repo.Add(p);
                 else repo.Update(p);
 
-                MessageBox.Show("Patient saved successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearForm();
                 LoadData();
             }
@@ -221,29 +83,25 @@ namespace ClinicApp.Forms
 
         private void BtnEdit_Click(object sender, EventArgs e)
         {
-            if (dgvPatients.SelectedRows.Count > 0)
-            {
-                var row = dgvPatients.SelectedRows[0];
-                selectedPatientID = (int)row.Cells["PatientID"].Value;
-                txtName.Text = row.Cells["Name"].Value.ToString();
-                txtAge.Text = row.Cells["Age"].Value.ToString();
-                cmbGender.SelectedItem = row.Cells["Gender"].Value.ToString();
-                txtPhone.Text = row.Cells["Phone"].Value.ToString();
-                txtAddress.Text = row.Cells["Address"].Value.ToString();
-                btnSave.Text = "Update";
-            }
+            if (dgvPatients.SelectedRows.Count == 0) return;
+            var row = dgvPatients.SelectedRows[0];
+            selectedPatientID = (int)row.Cells["PatientID"].Value;
+            txtName.Text = row.Cells["Name"].Value.ToString();
+            txtAge.Text = row.Cells["Age"].Value.ToString();
+            cmbGender.SelectedItem = row.Cells["Gender"].Value?.ToString();
+            txtPhone.Text = row.Cells["Phone"].Value.ToString();
+            txtAddress.Text = row.Cells["Address"]?.Value?.ToString() ?? "";
+            var existing = repo.GetByPhone(txtPhone.Text.Trim());
+            savedPassword = existing?.Password;
+            btnSave.Text = "Update";
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
-            if (dgvPatients.SelectedRows.Count > 0)
-            {
-                if (MessageBox.Show("Are you sure?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    repo.Delete((int)dgvPatients.SelectedRows[0].Cells["PatientID"].Value);
-                    LoadData();
-                }
-            }
+            if (dgvPatients.SelectedRows.Count == 0) return;
+            if (MessageBox.Show("Delete this patient?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            repo.Delete((int)dgvPatients.SelectedRows[0].Cells["PatientID"].Value);
+            LoadData();
         }
     }
 }

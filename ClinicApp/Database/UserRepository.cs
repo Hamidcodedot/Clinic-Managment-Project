@@ -1,9 +1,8 @@
 using System;
 using System.Data.SQLite;
-using ClinicApp.Database;
 using ClinicApp.Models;
 
-namespace ClinicApp.Repositories
+namespace ClinicApp.Database
 {
     public class UserRepository
     {

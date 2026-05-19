@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using ClinicApp.Database;
 using ClinicApp.Models;
 
-namespace ClinicApp.Repositories
+namespace ClinicApp.Database
 {
     public class DoctorRepository
     {
@@ -38,17 +37,7 @@ namespace ClinicApp.Repositories
                     {
                         while (reader.Read())
                         {
-                            doctors.Add(new Doctor
-                            {
-                                DoctorID = Convert.ToInt32(reader["DoctorID"]),
-                                Name = reader["Name"].ToString(),
-                                Specialization = reader["Specialization"].ToString(),
-                                Phone = reader["Phone"].ToString(),
-                                AvailableDays = reader["AvailableDays"]?.ToString() ?? "",
-                                AvailableSlots = reader["AvailableSlots"]?.ToString() ?? "",
-                                RoomNumber = reader["RoomNumber"]?.ToString() ?? "",
-                                Fee = Convert.ToDouble(reader["Fee"])
-                            });
+                            doctors.Add(MapDoctor(reader));
                         }
                     }
                 }
@@ -100,22 +89,27 @@ namespace ClinicApp.Repositories
                     {
                         while (reader.Read())
                         {
-                            doctors.Add(new Doctor
-                            {
-                                DoctorID = Convert.ToInt32(reader["DoctorID"]),
-                                Name = reader["Name"].ToString(),
-                                Specialization = reader["Specialization"].ToString(),
-                                Phone = reader["Phone"].ToString(),
-                                AvailableDays = reader["AvailableDays"]?.ToString() ?? "",
-                                AvailableSlots = reader["AvailableSlots"]?.ToString() ?? "",
-                                RoomNumber = reader["RoomNumber"]?.ToString() ?? "",
-                                Fee = Convert.ToDouble(reader["Fee"])
-                            });
+                            doctors.Add(MapDoctor(reader));
                         }
                     }
                 }
             }
             return doctors;
+        }
+
+        private static Doctor MapDoctor(SQLiteDataReader reader)
+        {
+            return new Doctor
+            {
+                DoctorID = Convert.ToInt32(reader["DoctorID"]),
+                Name = reader["Name"].ToString(),
+                Specialization = reader["Specialization"].ToString(),
+                Phone = reader["Phone"].ToString(),
+                AvailableDays = reader["AvailableDays"]?.ToString() ?? "",
+                AvailableSlots = reader["AvailableSlots"]?.ToString() ?? "",
+                RoomNumber = reader["RoomNumber"]?.ToString() ?? "",
+                Fee = Convert.ToDouble(reader["Fee"])
+            };
         }
     }
 }

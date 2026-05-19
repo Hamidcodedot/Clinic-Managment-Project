@@ -30,7 +30,7 @@
     <Compile Update="Models\*.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Repositories\*.cs">
+    <Compile Update="Database\*Repository.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
