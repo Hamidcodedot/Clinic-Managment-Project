@@ -74,17 +74,9 @@ namespace ClinicApp.Forms
             btnBack.FlatAppearance.BorderSize = 0;
             btnBack.Click += (s, e) => { new RoleSelectForm().Show(); this.Close(); };
 
-            var hint = new Label
-            {
-                Text = "Default: admin / admin123",
-                ForeColor = Color.FromArgb(127, 140, 141),
-                Font = new Font("Segoe UI", 8.5F, FontStyle.Italic),
-                Location = new Point(50, 255),
-                AutoSize = true
-            };
+            // Hint label removed per user request
 
             this.AcceptButton = btnLogin;
-            this.Controls.Add(hint);
             this.Controls.Add(btnBack);
             this.Controls.Add(btnLogin);
             this.Controls.Add(txtPassword);
