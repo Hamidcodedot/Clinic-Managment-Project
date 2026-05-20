@@ -1,4 +1,4 @@
-# Clinic Management System (CMS)
+# CareBridge Clinic Management System
 
 A lightweight, portable, and highly optimized Windows Forms application for managing clinic operations, built using **C#** and **SQLite** under the **.NET SDK-style** project format.
 
@@ -24,7 +24,7 @@ This project features a clean, separated architecture with code and designer log
 The codebase is organized logically following standard C# WinForms guidelines:
 
 ```text
-ClinicApp/
+CareBridgeClinic/
 │
 ├── Database/
 │   ├── DatabaseHelper.cs       # Auto-creates clinic.db & tables on startup
@@ -69,11 +69,11 @@ ClinicApp/
     ```
 2.  **Build the Project**:
     ```bash
-    dotnet build ClinicApp/ClinicApp.csproj
+    dotnet build CareBridgeClinic/CareBridgeClinic.csproj
     ```
 3.  **Run the Project**:
     ```bash
-    dotnet run --project ClinicApp/ClinicApp.csproj
+    dotnet run --project CareBridgeClinic/CareBridgeClinic.csproj
     ```
 
 > [!NOTE]
@@ -101,12 +101,12 @@ To test the application immediately, use the following pre-configured credential
 Because this application uses a local SQLite database (`clinic.db`), it is **fully portable** and does not require any database installations.
 
 ### 📦 Option 1: Use the Pre-Built Portable Package (Easiest)
-A pre-built, ready-to-run release package is available at the root of the project: **`ClinicApp_Release.zip`**.
+A pre-built, ready-to-run release package is available at the root of the project: **`CareBridgeClinic Deploy.zip`**.
 
 #### How to Deploy & Run:
-1.  **Transfer the Zip**: Copy `ClinicApp_Release.zip` to a USB drive or send it to the target Windows computer.
+1.  **Transfer the Zip**: Copy `CareBridgeClinic Deploy.zip` to a USB drive or send it to the target Windows computer.
 2.  **Extract the Files**: Right-click the zip file and select **Extract All...** to unzip it to a folder of your choice.
-3.  **Run the App**: Open the extracted folder and double-click **`ClinicApp.exe`**.
+3.  **Run the App**: Open the extracted folder and double-click **`CareBridgeClinic.exe`**.
 4.  **Database Auto-creation**: The application will automatically initialize a fresh `clinic.db` in that folder on its first startup and pre-populate the tables with default demo data.
 
 ---
@@ -117,12 +117,12 @@ If you want to compile and publish the latest source code yourself:
 1.  Open your terminal/command line in the project root directory.
 2.  Run the publish command:
     ```bash
-    dotnet publish ClinicApp/ClinicApp.csproj -c Release
+    dotnet publish CareBridgeClinic/CareBridgeClinic.csproj -c Release
     ```
 3.  Navigate to the publish directory:
     ```text
-    ClinicApp/bin/Release/publish/
+    CareBridgeClinic/bin/Release/publish/
     ```
-4.  Copy the `x64` and `x86` folders containing the native `SQLite.Interop.dll` from `ClinicApp/bin/Release/` into your `publish/` folder (required for SQLite to resolve native binaries on target systems).
-5.  Zip the final `publish` folder or copy it directly to your target Windows computer and run **`ClinicApp.exe`**.
+4.  Copy the `x64` and `x86` folders containing the native `SQLite.Interop.dll` from `CareBridgeClinic/bin/Release/` into your `publish/` folder (required for SQLite to resolve native binaries on target systems).
+5.  Zip the final `publish` folder or copy it directly to your target Windows computer and run **`CareBridgeClinic.exe`**.
 
