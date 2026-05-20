@@ -19,6 +19,9 @@ namespace CareBridgeClinic.Forms
         public AppointmentsForm()
         {
             InitializeComponent();
+            dgvApps.BringToFront();
+            if (cmbFilterStatus.Items.Count > 0) cmbFilterStatus.SelectedIndex = 0;
+            if (cmbGridStatus.Items.Count > 0) cmbGridStatus.SelectedIndex = 0;
             LoadLookups();
             LoadData();
         }

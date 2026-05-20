@@ -15,6 +15,7 @@ namespace CareBridgeClinic.Forms
         public DoctorsForm()
         {
             InitializeComponent();
+            dgvDoctors.BringToFront();
             LoadData();
         }
 
