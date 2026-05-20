@@ -67,6 +67,14 @@ namespace ClinicApp.Database
         {
             using (var conn = DatabaseHelper.GetConnection())
             {
+                // Cascade delete: First delete all appointments associated with this patient to prevent orphaned records
+                using (var cmd = new SQLiteCommand("DELETE FROM Appointments WHERE PatientID=@id", conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+
+                // Then delete the patient
                 using (var cmd = new SQLiteCommand("DELETE FROM Patients WHERE PatientID=@id", conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);

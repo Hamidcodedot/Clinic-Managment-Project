@@ -130,6 +130,18 @@ namespace ClinicApp.Database
                         cmd.CommandText = $"INSERT INTO Appointments (PatientID, DoctorID, AppointmentDate, AppointmentTime, Status, Notes, BookedBy) VALUES (1, 1, '{today}', '10:00 AM', 'Pending', 'General Checkup', 'Staff')";
                         cmd.ExecuteNonQuery();
                     }
+
+                    // --- Cleanup Orphaned Records ---
+                    // This query runs every time the app starts to ensure no orphaned appointments exist
+                    // (e.g., if a doctor or patient was deleted before we added cascading deletes).
+                    try
+                    {
+                        cmd.CommandText = @"DELETE FROM Appointments 
+                                            WHERE DoctorID NOT IN (SELECT DoctorID FROM Doctors) 
+                                               OR PatientID NOT IN (SELECT PatientID FROM Patients)";
+                        cmd.ExecuteNonQuery();
+                    }
+                    catch { }
                 }
             }
         }
