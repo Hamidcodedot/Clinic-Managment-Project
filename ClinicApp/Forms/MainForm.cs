@@ -7,19 +7,51 @@ namespace ClinicApp.Forms
 {
     public partial class MainForm : Form
     {
-        private Label lblTotalDoctors, lblTotalPatients, lblTodayAppointments, lblPendingAppts;
-        private FlowLayoutPanel statsPanel;
-        private Panel navPanel;
-
-        private readonly DoctorRepository docRepo = new DoctorRepository();
-        private readonly PatientRepository patRepo = new PatientRepository();
-        private readonly AppointmentRepository appRepo = new AppointmentRepository();
+        private readonly DoctorRepository docRepo;
+        private readonly PatientRepository patRepo;
+        private readonly AppointmentRepository appRepo;
 
         public MainForm()
         {
             InitializeComponent();
-            Activated += (s, e) => RefreshStats();
-            Shown += (s, e) => CenterContent();
+            docRepo = new DoctorRepository();
+            patRepo = new PatientRepository();
+            appRepo = new AppointmentRepository();
+            try
+            {
+                string logoPath = System.IO.Path.Combine(Application.StartupPath, "Assets", "logo.png");
+                if (System.IO.File.Exists(logoPath)) picLogo.Image = Image.FromFile(logoPath);
+            }
+            catch { }
+            Activated += MainForm_Activated;
+            Shown += MainForm_Shown;
+        }
+
+
+        private void MainForm_Activated(object sender, EventArgs e) => RefreshStats();
+        private void MainForm_Shown(object sender, EventArgs e) => CenterContent();
+
+        private void BtnDocs_Click(object sender, EventArgs e)
+        {
+            using (var f = new DoctorsForm()) f.ShowDialog();
+            RefreshStats();
+        }
+
+        private void BtnApps_Click(object sender, EventArgs e)
+        {
+            using (var f = new AppointmentsForm()) f.ShowDialog();
+            RefreshStats();
+        }
+
+        private void BtnLogout_Click(object sender, EventArgs e)
+        {
+            new RoleSelectForm().Show();
+            this.Close();
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            CenterContent();
         }
 
         private void CenterContent()

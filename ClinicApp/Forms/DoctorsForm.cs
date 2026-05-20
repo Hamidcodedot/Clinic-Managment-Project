@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using ClinicApp.Database;
 using ClinicApp.Models;
@@ -7,9 +8,7 @@ namespace ClinicApp.Forms
 {
     public partial class DoctorsForm : Form
     {
-        private DataGridView dgvDoctors;
-        private TextBox txtName, txtSpec, txtPhone, txtDays, txtSlots, txtRoom, txtFee, txtSearch;
-        private Button btnSave, btnEdit, btnDelete;
+
         private readonly DoctorRepository repo = new DoctorRepository();
         private int selectedDoctorID;
 
@@ -18,6 +17,8 @@ namespace ClinicApp.Forms
             InitializeComponent();
             LoadData();
         }
+
+
 
         private void LoadData(string query = "")
         {
@@ -49,6 +50,7 @@ namespace ClinicApp.Forms
             txtSlots.Clear();
             txtRoom.Clear();
             txtFee.Clear();
+            dgvDoctors.ClearSelection();
             selectedDoctorID = 0;
             btnSave.Text = "Save";
         }
@@ -123,6 +125,16 @@ namespace ClinicApp.Forms
             {
                 MessageBox.Show("Error deleting: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnClear_Click(object sender, EventArgs e)
+        {
+            ClearForm();
+        }
+
+        private void TxtSearch_TextChanged(object sender, EventArgs e)
+        {
+            LoadData(txtSearch.Text);
         }
     }
 }

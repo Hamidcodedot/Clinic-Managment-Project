@@ -9,41 +9,7 @@ namespace ClinicApp.Forms
 {
     public partial class AppointmentsForm : Form
     {
-        // UI Controls
-        private DataGridView dgvApps;
-        
-        // Patient Information Group Box Controls
-        private ComboBox cmbPatient;
-        private CheckBox chkEditPatient;
-        private TextBox txtName;
-        private TextBox txtPhone;
-        private TextBox txtAge;
-        private ComboBox cmbGender;
-        private TextBox txtAddress;
 
-        // Appointment Information Group Box Controls
-        private ComboBox cmbDoctor;
-        private Label lblDoctorInfo;
-        private DateTimePicker dtpDate;
-        private ComboBox cmbTimeSlot;
-        private TextBox txtNotes;
-
-        // Action Buttons
-        private Button btnBook;
-        private Button btnClear;
-
-        // Filters Controls
-        private CheckBox chkEnableDateFilter;
-        private DateTimePicker dtpFilterDate;
-        private ComboBox cmbFilterStatus;
-        private Button btnApplyFilter;
-        private Button btnShowAll;
-
-        // Right Pane Actions
-        private ComboBox cmbGridStatus;
-        private Button btnUpdateStatus;
-        private Button btnDelete;
-        private Button btnRefresh;
 
         // Repositories
         private AppointmentRepository appRepo = new AppointmentRepository();
@@ -56,6 +22,8 @@ namespace ClinicApp.Forms
             LoadLookups();
             LoadData();
         }
+
+
 
         private void LoadLookups()
         {
@@ -477,6 +445,23 @@ namespace ClinicApp.Forms
                     dgvApps.Rows[e.RowIndex].DefaultCellStyle.BackColor = Color.LightYellow;
                 }
             }
+        }
+
+        private void BtnApplyFilter_Click(object sender, EventArgs e)
+        {
+            LoadData();
+        }
+
+        private void BtnShowAll_Click(object sender, EventArgs e)
+        {
+            chkEnableDateFilter.Checked = false;
+            cmbFilterStatus.SelectedIndex = 0;
+            LoadData();
+        }
+
+        private void BtnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadData();
         }
     }
 }

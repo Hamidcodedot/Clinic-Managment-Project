@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using ClinicApp.Database;
 using ClinicApp.Models;
@@ -7,19 +8,25 @@ namespace ClinicApp.Forms
 {
     public partial class PatientPortalForm : Form
     {
-        private TextBox txtLoginPhone, txtLoginPassword, txtNewPass;
-        private Label lblRecordWelcome;
-        private DataGridView dgvMyAppts;
-        private Panel pnlHistoryAndProfile;
 
-        private readonly PatientRepository patRepo = new PatientRepository();
-        private readonly AppointmentRepository appRepo = new AppointmentRepository();
+        private readonly PatientRepository patRepo;
+        private readonly AppointmentRepository appRepo;
         private Patient loggedInPatient;
 
         public PatientPortalForm()
         {
             InitializeComponent();
+            patRepo = new PatientRepository();
+            appRepo = new AppointmentRepository();
+            try
+            {
+                string logoPath = System.IO.Path.Combine(Application.StartupPath, "Assets", "logo.png");
+                if (System.IO.File.Exists(logoPath)) picLogo.Image = Image.FromFile(logoPath);
+            }
+            catch { }
         }
+
+
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
@@ -48,6 +55,21 @@ namespace ClinicApp.Forms
             if (dgvMyAppts.Columns.Contains("AppointmentTime")) dgvMyAppts.Columns["AppointmentTime"].HeaderText = "Time";
             if (dgvMyAppts.Columns.Contains("Status")) dgvMyAppts.Columns["Status"].HeaderText = "Status";
             if (dgvMyAppts.Columns.Contains("Notes")) dgvMyAppts.Columns["Notes"].HeaderText = "Notes";
+        }
+
+        private void BtnUpdatePass_Click(object sender, EventArgs e)
+        {
+            if (loggedInPatient == null || string.IsNullOrWhiteSpace(txtNewPass.Text)) return;
+            loggedInPatient.Password = txtNewPass.Text.Trim();
+            patRepo.Update(loggedInPatient);
+            MessageBox.Show("Password updated successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            txtNewPass.Clear();
+        }
+
+        private void BtnBack_Click(object sender, EventArgs e)
+        {
+            new RoleSelectForm().Show();
+            this.Close();
         }
     }
 }
