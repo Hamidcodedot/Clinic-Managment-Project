@@ -59,7 +59,7 @@ namespace ClinicApp.Forms
             // 
             this.lblHeader.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblHeader.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lblHeader.Location = new System.Drawing.Point(86, 0);
+            this.lblHeader.Location = new System.Drawing.Point(90, -1);
             this.lblHeader.Name = "lblHeader";
             this.lblHeader.Size = new System.Drawing.Size(394, 90);
             this.lblHeader.TabIndex = 0;
@@ -113,16 +113,17 @@ namespace ClinicApp.Forms
             // 
             this.hint.Font = new System.Drawing.Font("Segoe UI", 8.5F);
             this.hint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(127)))), ((int)(((byte)(140)))), ((int)(((byte)(141)))));
-            this.hint.Location = new System.Drawing.Point(30, 310);
+            this.hint.Location = new System.Drawing.Point(77, 298);
             this.hint.Name = "hint";
-            this.hint.Size = new System.Drawing.Size(420, 36);
+            this.hint.Size = new System.Drawing.Size(328, 61);
             this.hint.TabIndex = 4;
-            this.hint.Text = "Staff: manage doctors, patients && appointments  •  Patients: view history && change password";
+            this.hint.Text = "Staff: manage doctors, patients && appointments  •  Patients: view history && cha" +
+    "nge password";
             this.hint.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // RoleSelectForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(250)))));
             this.ClientSize = new System.Drawing.Size(480, 380);
@@ -140,6 +141,7 @@ namespace ClinicApp.Forms
             this.header.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.PictureBox picLogo;

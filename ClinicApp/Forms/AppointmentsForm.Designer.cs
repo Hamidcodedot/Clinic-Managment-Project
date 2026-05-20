@@ -64,9 +64,9 @@ namespace ClinicApp.Forms
 
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.pnlForm = new System.Windows.Forms.Panel();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnBook = new System.Windows.Forms.Button();
@@ -156,7 +156,7 @@ namespace ClinicApp.Forms
             // 
             // btnBook
             // 
-            this.btnBook.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnBook.BackColor = System.Drawing.Color.Green;
             this.btnBook.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBook.Font = new System.Drawing.Font("Segoe UI", 9.5F, System.Drawing.FontStyle.Bold);
             this.btnBook.ForeColor = System.Drawing.Color.White;
@@ -460,35 +460,35 @@ namespace ClinicApp.Forms
             // dgvApps
             // 
             this.dgvApps.AllowUserToAddRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(254)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(235)))), ((int)(((byte)(252)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.dgvApps.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(252)))), ((int)(((byte)(254)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(235)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.dgvApps.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvApps.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvApps.BackgroundColor = System.Drawing.Color.White;
             this.dgvApps.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvApps.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dgvApps.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(130)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvApps.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(130)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvApps.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvApps.ColumnHeadersHeight = 38;
             this.dgvApps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(235)))), ((int)(((byte)(252)))));
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvApps.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(10, 0, 10, 0);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(235)))), ((int)(((byte)(252)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvApps.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvApps.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvApps.EnableHeadersVisualStyles = false;
             this.dgvApps.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(235)))), ((int)(((byte)(240)))));
@@ -520,7 +520,7 @@ namespace ClinicApp.Forms
             // 
             // btnRefresh
             // 
-            this.btnRefresh.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnRefresh.BackColor = System.Drawing.Color.Green;
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
@@ -548,7 +548,7 @@ namespace ClinicApp.Forms
             // 
             // btnUpdateStatus
             // 
-            this.btnUpdateStatus.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnUpdateStatus.BackColor = System.Drawing.Color.Green;
             this.btnUpdateStatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdateStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.btnUpdateStatus.ForeColor = System.Drawing.Color.White;
@@ -637,7 +637,7 @@ namespace ClinicApp.Forms
             // 
             // btnApplyFilter
             // 
-            this.btnApplyFilter.BackColor = System.Drawing.Color.SteelBlue;
+            this.btnApplyFilter.BackColor = System.Drawing.Color.Green;
             this.btnApplyFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApplyFilter.ForeColor = System.Drawing.Color.White;
             this.btnApplyFilter.Location = new System.Drawing.Point(475, 12);
@@ -675,19 +675,20 @@ namespace ClinicApp.Forms
             // dtpFilterDate
             // 
             this.dtpFilterDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFilterDate.Location = new System.Drawing.Point(145, 15);
+            this.dtpFilterDate.Location = new System.Drawing.Point(149, 15);
             this.dtpFilterDate.Name = "dtpFilterDate";
             this.dtpFilterDate.Size = new System.Drawing.Size(120, 27);
             this.dtpFilterDate.TabIndex = 2;
             // 
             // chkEnableDateFilter
             // 
-            this.chkEnableDateFilter.Location = new System.Drawing.Point(85, 17);
+            this.chkEnableDateFilter.Location = new System.Drawing.Point(86, 18);
             this.chkEnableDateFilter.Name = "chkEnableDateFilter";
             this.chkEnableDateFilter.Size = new System.Drawing.Size(60, 24);
             this.chkEnableDateFilter.TabIndex = 1;
-            this.chkEnableDateFilter.Text = "Date:";
+            this.chkEnableDateFilter.Text = "Date";
             this.chkEnableDateFilter.UseVisualStyleBackColor = true;
+            this.chkEnableDateFilter.CheckedChanged += new System.EventHandler(this.chkEnableDateFilter_CheckedChanged);
             // 
             // lblFilterTitle
             // 

@@ -48,7 +48,7 @@ namespace ClinicApp.Forms
             this.picSplash.Dock = System.Windows.Forms.DockStyle.Left;
             this.picSplash.Location = new System.Drawing.Point(0, 0);
             this.picSplash.Name = "picSplash";
-            this.picSplash.Size = new System.Drawing.Size(280, 340);
+            this.picSplash.Size = new System.Drawing.Size(280, 370);
             this.picSplash.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picSplash.TabIndex = 7;
             this.picSplash.TabStop = false;
@@ -99,7 +99,7 @@ namespace ClinicApp.Forms
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtUsername.Location = new System.Drawing.Point(330, 118);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(300, 25);
+            this.txtUsername.Size = new System.Drawing.Size(300, 30);
             this.txtUsername.TabIndex = 2;
             // 
             // lblPass
@@ -118,7 +118,7 @@ namespace ClinicApp.Forms
             this.txtPassword.Location = new System.Drawing.Point(330, 173);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
-            this.txtPassword.Size = new System.Drawing.Size(300, 25);
+            this.txtPassword.Size = new System.Drawing.Size(300, 30);
             this.txtPassword.TabIndex = 4;
             // 
             // btnLogin
@@ -156,10 +156,10 @@ namespace ClinicApp.Forms
             // LoginForm
             // 
             this.AcceptButton = this.btnLogin;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(248)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(700, 340);
+            this.ClientSize = new System.Drawing.Size(700, 370);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtPassword);

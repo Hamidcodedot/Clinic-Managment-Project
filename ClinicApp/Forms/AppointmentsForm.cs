@@ -463,5 +463,10 @@ namespace ClinicApp.Forms
         {
             LoadData();
         }
+
+        private void chkEnableDateFilter_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

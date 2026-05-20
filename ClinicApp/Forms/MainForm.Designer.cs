@@ -319,10 +319,11 @@ namespace ClinicApp.Forms
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Clinic Management System — Staff Panel";
+            this.Text = "CareBridge Clinic — Staff Panel";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
             this.header.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picLogo)).EndInit();
             this.statsPanel.ResumeLayout(false);
             this.pnlStatDoctors.ResumeLayout(false);
             this.pnlStatDoctors.PerformLayout();
